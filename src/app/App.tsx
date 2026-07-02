@@ -387,9 +387,8 @@ function Nav() {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => scrollToSection(e, item.id)}
-                className={`relative text-sm transition-colors duration-300 tracking-wide py-2 ${
-                  isActive ? "text-white font-bold" : "text-white/50 hover:text-white font-medium"
-                }`}
+                className={`relative text-sm transition-colors duration-300 tracking-wide py-2 ${isActive ? "text-white font-bold" : "text-white/50 hover:text-white font-medium"
+                  }`}
               >
                 {item.label}
                 {isActive && (
@@ -1436,7 +1435,7 @@ function Footer() {
         </a>
 
         <p className="text-[#9E9E9E] text-sm text-center">
-          © 2024 Sushanth Sapare. Crafted with precision.
+          © 2026 | Sushanth Sapare
         </p>
 
         <div className="flex items-center gap-6">
