@@ -249,7 +249,6 @@ const FAN_ARTS: FanArtItem[] = [
 
 const SKILL_GROUPS = [
   {
-    num: "01",
     category: "Poster Design",
     description: "Movie publicity, branding and print creatives.",
     skills: [
@@ -261,7 +260,6 @@ const SKILL_GROUPS = [
     ],
   },
   {
-    num: "02",
     category: "Motion Design",
     description: "Motion graphics and animation workflows.",
     skills: [
@@ -271,7 +269,6 @@ const SKILL_GROUPS = [
     ],
   },
   {
-    num: "03",
     category: "Video Editing",
     description: "Editing cinematic promotional content.",
     skills: [
@@ -280,7 +277,6 @@ const SKILL_GROUPS = [
     ],
   },
   {
-    num: "04",
     category: "Web Design",
     description: "Interactive interfaces and responsive experiences.",
     skills: [
@@ -1186,14 +1182,6 @@ function Skills() {
                   gIdx % 2 === 1 ? "sm:mt-12" : ""
                 }`}
               >
-                {/* Small section label */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#FF5B3D]">
-                    // {group.num} TOOLKIT
-                  </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5B3D]/40 group-hover:bg-[#FF5B3D] transition-colors" />
-                </div>
-
                 {/* Large category title */}
                 <h3
                   className="font-black text-white leading-tight mb-2 tracking-wide"
