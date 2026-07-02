@@ -1,0 +1,145 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #090909;
+  --foreground: #ffffff;
+  --card: #171717;
+  --card-foreground: #ffffff;
+  --popover: #141414;
+  --popover-foreground: #ffffff;
+  --primary: #FF5B3D;
+  --primary-foreground: #ffffff;
+  --secondary: #141414;
+  --secondary-foreground: #ffffff;
+  --muted: #1a1a1a;
+  --muted-foreground: #9E9E9E;
+  --accent: #F2D16B;
+  --accent-foreground: #090909;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: transparent;
+  --input-background: #171717;
+  --switch-background: #2a2a2a;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: rgba(255, 91, 61, 0.4);
+  --chart-1: #FF5B3D;
+  --chart-2: #F2D16B;
+  --chart-3: #A78BFA;
+  --chart-4: #34D399;
+  --chart-5: #60A5FA;
+  --radius: 0.75rem;
+  --sidebar: #0d0d0d;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #FF5B3D;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-ring: rgba(255, 91, 61, 0.4);
+}
+
+.dark {
+  --background: #090909;
+  --foreground: #ffffff;
+  --card: #171717;
+  --card-foreground: #ffffff;
+  --popover: #141414;
+  --popover-foreground: #ffffff;
+  --primary: #FF5B3D;
+  --primary-foreground: #ffffff;
+  --secondary: #141414;
+  --secondary-foreground: #ffffff;
+  --muted: #1a1a1a;
+  --muted-foreground: #9E9E9E;
+  --accent: #F2D16B;
+  --accent-foreground: #090909;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #171717;
+  --ring: rgba(255, 91, 61, 0.4);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #FF5B3D;
+  --chart-2: #F2D16B;
+  --chart-3: #A78BFA;
+  --chart-4: #34D399;
+  --chart-5: #60A5FA;
+  --sidebar: #0d0d0d;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #FF5B3D;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-ring: rgba(255, 91, 61, 0.4);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 800;
+    line-height: 1.1;
+  }
+}
