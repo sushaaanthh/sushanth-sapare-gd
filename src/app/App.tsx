@@ -18,8 +18,8 @@ const DISPLAY_FONT = "'Big Shoulders Display', sans-serif";
 const NAV_ITEMS = [
   { label: "Home", id: "home" },
   { label: "About", id: "about" },
-  { label: "Publicity", id: "publicity" },
-  { label: "Campaigns", id: "campaigns" },
+  { label: "Publicity Design", id: "publicity" },
+  { label: "SM Campaigns", id: "campaigns" },
   { label: "Skills", id: "skills" },
   { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
@@ -34,23 +34,23 @@ const SPECIALTIES = [
 
 const HERO_COLLAGE = [
   {
-    img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=280&h=380&fit=crop&auto=format",
-    style: { top: "12%", left: "58%", rotate: -5 },
+    img: "/hero/hero-section-1.jpg",
+    style: { top: "18%", left: "57%", rotate: -5 },
     delay: 0,
   },
   {
-    img: "https://images.unsplash.com/photo-1524781289445-ddf8ad4f31fe?w=240&h=340&fit=crop&auto=format",
-    style: { top: "5%", left: "74%", rotate: 4 },
+    img: "/hero/hero-section-2.jpg",
+    style: { top: "15%", left: "73%", rotate: 4 },
     delay: 0.15,
   },
   {
-    img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=220&h=300&fit=crop&auto=format",
-    style: { top: "50%", left: "62%", rotate: 3 },
+    img: "/hero/hero-section-3.jpg",
+    style: { top: "54%", left: "61%", rotate: 3 },
     delay: 0.3,
   },
   {
-    img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=200&h=280&fit=crop&auto=format",
-    style: { top: "45%", left: "79%", rotate: -3 },
+    img: "/hero/hero-section-4.jpg",
+    style: { top: "49%", left: "78%", rotate: -3 },
     delay: 0.45,
   },
 ];
@@ -82,7 +82,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2024",
     role: "Lead Designer",
     color: "#FF5B3D",
-    img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&h=1100&fit=crop&auto=format",
+    img: "/publicity/con-kaun.jpg",
     tall: true,
     description: "Spearheaded the theatrical publicity design and visual identity for this pan-India blockbuster. Developed high-impact theatrical posters, teaser graphics, and digital countdown assets designed to evoke cinematic scale and intensity."
   },
@@ -93,7 +93,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2023",
     role: "Poster Designer",
     color: "#F2D16B",
-    img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=600&fit=crop&auto=format",
+    img: "/publicity/keedaa-cola.jpg",
     tall: false,
     description: "Crafted quirky, stylized character posters and promotional title cards reflecting the film's eccentric crime-comedy tone. Focused on vibrant color theory and unconventional typography."
   },
@@ -104,7 +104,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2024",
     role: "Creative Director",
     color: "#A78BFA",
-    img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=1100&fit=crop&auto=format",
+    img: "/publicity/kaantha-reel-thumb.jpg",
     tall: true,
     description: "Directed the complete visual design system from pre-release announcement posters to official theatrical standees, establishing an atmospheric and moody visual narrative."
   },
@@ -115,7 +115,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2023",
     role: "Graphic Designer",
     color: "#34D399",
-    img: "https://images.unsplash.com/photo-1574267432553-4a9628a49e11?w=800&h=600&fit=crop&auto=format",
+    img: "/publicity/maya-poster.jpg",
     tall: false,
     description: "Designed vibrant, mass-appeal theatrical posters and digital banners celebrating rustic energy and energetic character dynamics."
   },
@@ -126,7 +126,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2024",
     role: "Visual Designer",
     color: "#F97316",
-    img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&h=1100&fit=crop&auto=format",
+    img: "/publicity/kishkindhapuri-2dtg.jpg",
     tall: true,
     description: "Formulated mythical and mysterious visual artworks for promotional campaigns, blending textured illustrations with dramatic lighting."
   },
@@ -137,7 +137,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2024",
     role: "Motion Designer",
     color: "#EC4899",
-    img: "https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=800&h=600&fit=crop&auto=format",
+    img: "/publicity/rathnam-reel.jpg",
     tall: false,
     description: "Produced high-energy action release posters and animated title reveals for digital promotions and theatrical display screens."
   },
@@ -148,7 +148,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2023",
     role: "Poster Designer",
     color: "#F2D16B",
-    img: "https://images.unsplash.com/photo-1524781289445-ddf8ad4f31fe?w=800&h=1100&fit=crop&auto=format",
+    img: "/publicity/gam-gam-ganesha-spotify-backdrop.jpg",
     tall: true,
     description: "Designed festival-themed release posters and engaging character introduction cards with dynamic typography and celebratory palettes."
   },
@@ -159,7 +159,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2024",
     role: "Lead Designer",
     color: "#FF5B3D",
-    img: "https://images.unsplash.com/photo-1478720568477-152d9b05c7ff?w=800&h=600&fit=crop&auto=format",
+    img: "/publicity/raakaasa.jpg",
     tall: false,
     description: "Created gritty, high-contrast promotional creatives and title treatments emphasizing tension and cinematic thrill."
   },
@@ -170,7 +170,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2023",
     role: "Designer",
     color: "#60A5FA",
-    img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=800&h=1100&fit=crop&auto=format",
+    img: "/publicity/makutam-hd.jpg",
     tall: true,
     description: "Executed royal and regal title layouts, key art concepts, and promotional social collaterals."
   },
@@ -181,7 +181,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2024",
     role: "Graphic Designer",
     color: "#A78BFA",
-    img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=800&h=600&fit=crop&auto=format",
+    img: "/publicity/don-bosko.jpg",
     tall: false,
     description: "Designed sleek, modern promotional posters and character posters tailored for urban youth audiences."
   },
@@ -192,7 +192,7 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     year: "2024",
     role: "Visual Designer",
     color: "#34D399",
-    img: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=800&h=1100&fit=crop&auto=format",
+    img: "/publicity/17-yorc.jpg",
     tall: true,
     description: "Delivered cohesive visual storytelling assets from announcement flyers to countdown story templates across digital channels."
   },
@@ -207,9 +207,9 @@ const SOCIAL_MEDIA_CAMPAIGNS = [
     color: "#FF5B3D",
     description: "End-to-end social media creative direction for feature film announcements, festival greetings, behind-the-scenes countdowns, and audience engagement contests.",
     carouselPlaceholders: [
-      { title: "Title Announcement", img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&h=500&fit=crop&auto=format" },
-      { title: "Teaser Countdown", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&h=500&fit=crop&auto=format" },
-      { title: "Release Day Banner", img: "https://images.unsplash.com/photo-1460881680858-30d872d5b530?w=500&h=500&fit=crop&auto=format" },
+      { title: "Teachers' Day Feature", img: "/social-campaigns/loukya-ents-teachers-day.jpg" },
+      { title: "Brand Identity Highlight", img: "/branding/fanart3-orange.jpg" },
+      { title: "Festival Campaign Banner", img: "/social-campaigns/pink-ele-vc-wishes.jpg" },
     ]
   },
   {
@@ -220,9 +220,9 @@ const SOCIAL_MEDIA_CAMPAIGNS = [
     color: "#F2D16B",
     description: "Designed vibrant promotional tiles, Instagram story series, cast reveals, and motion graphic reels driving substantial organic fan interactions.",
     carouselPlaceholders: [
-      { title: "Character Reveal 01", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=500&fit=crop&auto=format" },
-      { title: "Music Video Promo", img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&h=500&fit=crop&auto=format" },
-      { title: "Milestone Celebration", img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=500&fit=crop&auto=format" },
+      { title: "Anniversary Wishes", img: "/social-campaigns/pink-ele-vc-wishes.jpg" },
+      { title: "Digital Campaign Showcase", img: "/social-campaigns/loukya-ents-teachers-day.jpg" },
+      { title: "Visual Concept Art", img: "/branding/fanart3-orange.jpg" },
     ]
   },
   {
@@ -233,9 +233,9 @@ const SOCIAL_MEDIA_CAMPAIGNS = [
     color: "#A78BFA",
     description: "Created high-converting digital thumbnails, web banners, premiere countdown cards, and interactive weekend watch lists for regional OTT releases.",
     carouselPlaceholders: [
-      { title: "Weekend Watchlist", img: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=500&h=500&fit=crop&auto=format" },
-      { title: "Streaming Now Hero", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&h=500&fit=crop&auto=format" },
-      { title: "Top 10 Spotlight", img: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=500&fit=crop&auto=format" },
+      { title: "London Kids Premiere Spotlight", img: "/social-campaigns/london-kids.jpg" },
+      { title: "Streaming Now Banner", img: "/social-campaigns/sreemaya-ents.jpg" },
+      { title: "Creative Key Art", img: "/branding/fanart3-orange.jpg" },
     ]
   },
   {
@@ -246,9 +246,9 @@ const SOCIAL_MEDIA_CAMPAIGNS = [
     color: "#34D399",
     description: "Formulated engaging campus fest campaigns, admission spotlight infographics, cultural fest posters, and student leadership announcements.",
     carouselPlaceholders: [
-      { title: "Cultural Fest Key Art", img: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=500&fit=crop&auto=format" },
-      { title: "Campus Life Spotlight", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=500&h=500&fit=crop&auto=format" },
-      { title: "Symposium Promo", img: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&h=500&fit=crop&auto=format" },
+      { title: "Institutional Event Key Art", img: "/social-campaigns/sreemaya-ents.jpg" },
+      { title: "Campus Spotlight Banner", img: "/social-campaigns/london-kids.jpg" },
+      { title: "Symposium Campaign", img: "/social-campaigns/loukya-ents-teachers-day.jpg" },
     ]
   },
 ];
@@ -357,12 +357,13 @@ function Nav() {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
-        background: scrolled ? "rgba(9,9,9,0.92)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "none",
-        transition: "background 0.5s, backdrop-filter 0.5s, border 0.5s",
+        background: scrolled ? "rgba(9, 9, 9, 0.88)" : "rgba(15, 15, 15, 0.65)",
+        backdropFilter: "blur(20px) saturate(180%)",
+        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+        borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.08)" : "1px solid rgba(255, 255, 255, 0.05)",
+        boxShadow: scrolled ? "0 10px 30px -10px rgba(0,0,0,0.6)" : "0 4px 20px -5px rgba(0,0,0,0.35)",
       }}
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -374,9 +375,11 @@ function Nav() {
           onClick={(e) => scrollToSection(e, "home")}
           className="flex items-center"
         >
-          <span className="text-xl font-black text-white tracking-tight" style={{ fontFamily: DISPLAY_FONT }}>
-            SS<span className="text-[#FF5B3D]">.</span>
-          </span>
+          <img
+            src="/icons/ss-icon-photo.png"
+            alt="Sushanth Sapare Logo"
+            className="h-8 sm:h-9 w-auto object-contain"
+          />
         </a>
 
         <div className="hidden lg:flex items-center gap-8">
@@ -387,8 +390,9 @@ function Nav() {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => scrollToSection(e, item.id)}
-                className={`relative text-sm transition-colors duration-300 tracking-wide py-2 ${isActive ? "text-white font-bold" : "text-white/50 hover:text-white font-medium"
-                  }`}
+                className={`relative text-sm transition-colors duration-300 tracking-wide py-2 ${
+                  isActive ? "text-white font-bold" : "text-white/50 hover:text-white font-medium"
+                }`}
               >
                 {item.label}
                 {isActive && (
@@ -401,18 +405,6 @@ function Nav() {
               </a>
             );
           })}
-        </div>
-
-        <div className="hidden lg:block">
-          <motion.a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, "contact")}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF5B3D] text-white text-sm font-bold rounded-full"
-            whileHover={{ scale: 1.04, backgroundColor: "#ff7b63" }}
-            whileTap={{ scale: 0.97 }}
-          >
-            Hire Me <ArrowUpRight className="w-3.5 h-3.5" />
-          </motion.a>
         </div>
 
         <button
@@ -555,9 +547,9 @@ function Hero() {
           </span>
         </motion.div>
 
-        <div className="overflow-hidden mb-2">
+        <div className="overflow-hidden pt-5 -mt-5 pb-2 mb-2">
           <motion.h1
-            className="font-black leading-[0.82] tracking-tighter text-white"
+            className="font-black leading-[0.86] tracking-tighter text-white"
             style={{
               fontFamily: DISPLAY_FONT,
               fontSize: "clamp(3.5rem, 13vw, 13rem)",
@@ -569,9 +561,9 @@ function Hero() {
             SUSHANTH
           </motion.h1>
         </div>
-        <div className="overflow-hidden mb-10 lg:mb-14">
+        <div className="overflow-hidden pt-5 -mt-5 pb-2 mb-10 lg:mb-14">
           <motion.h1
-            className="font-black leading-[0.82] tracking-tighter"
+            className="font-black leading-[0.86] tracking-tighter"
             style={{
               fontFamily: DISPLAY_FONT,
               fontSize: "clamp(3.5rem, 13vw, 13rem)",
@@ -587,51 +579,25 @@ function Hero() {
         </div>
 
         <motion.div
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
+          className="flex items-center gap-5 pt-2"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.9 }}
         >
-          <div className="flex items-center gap-5">
-            <div className="w-px h-14 bg-white/15" />
-            <div className="h-7 overflow-hidden flex flex-col">
-              <span className="text-xs text-[#9E9E9E] tracking-widest uppercase mb-1">Graphic Designer</span>
-              <div className="overflow-hidden h-6">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={specialty}
-                    className="block text-base font-semibold text-white/90"
-                    initial={{ y: 28, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -28, opacity: 0 }}
-                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    {SPECIALTIES[specialty]}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 flex-wrap">
-            <motion.a
-              href="#publicity"
-              onClick={(e) => scrollToSection(e, "publicity")}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5B3D] text-white font-bold text-sm rounded-full"
-              whileHover={{ scale: 1.04, gap: "10px" }}
-              whileTap={{ scale: 0.96 }}
-            >
-              View Portfolio <ArrowUpRight className="w-4 h-4" />
-            </motion.a>
-            <motion.a
-              href="#contact"
-              onClick={(e) => scrollToSection(e, "contact")}
-              className="inline-flex items-center px-6 py-3 border border-white/15 text-white font-bold text-sm rounded-full backdrop-blur-sm"
-              whileHover={{ borderColor: "rgba(255,255,255,0.4)", scale: 1.02 }}
-              whileTap={{ scale: 0.96 }}
-            >
-              Let's Work Together
-            </motion.a>
+          <div className="w-1.5 h-8 bg-[#FF5B3D] rounded-full shadow-lg shadow-[#FF5B3D]/50" />
+          <div className="overflow-hidden h-9 flex items-center">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={specialty}
+                className="block text-xl sm:text-2xl font-bold tracking-wide text-white/90 leading-none"
+                initial={{ y: 32, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -32, opacity: 0 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {SPECIALTIES[specialty]}
+              </motion.span>
+            </AnimatePresence>
           </div>
         </motion.div>
       </div>
@@ -661,7 +627,7 @@ function About() {
           >
             <div className="relative aspect-[3/4] max-w-[460px] rounded-2xl overflow-hidden bg-[#141414]">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&auto=format"
+                src="/about/about-section-photo.png"
                 alt="Sushanth Sapare"
                 className="w-full h-full object-cover"
                 style={{ filter: "grayscale(0.85) contrast(1.1)" }}
@@ -814,7 +780,7 @@ const PublicityCampaignCard: React.FC<{
       </div>
     </motion.div>
   );
-}
+};
 
 function PublicityCampaigns() {
   const [selected, setSelected] = useState<CampaignItem | null>(null);
@@ -822,7 +788,7 @@ function PublicityCampaigns() {
   return (
     <section id="publicity" className="py-28 lg:py-44 bg-[#090909]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="02 — Publicity Campaigns" />
+        <SectionLabel label="02 — Publicity Design" />
 
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-14 lg:mb-20">
           <div>
@@ -953,7 +919,7 @@ function SocialMediaCampaigns() {
   return (
     <section id="campaigns" className="py-28 lg:py-44" style={{ background: "#0d0d0d" }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="03 — Social Media Campaigns" />
+        <SectionLabel label="03 — SM Campaigns" />
 
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-14 lg:mb-20">
           <div>
@@ -1429,9 +1395,11 @@ function Footer() {
           onClick={(e) => { e.preventDefault(); scrollToTop(); }}
           className="flex items-center"
         >
-          <span className="text-2xl font-black text-white" style={{ fontFamily: DISPLAY_FONT }}>
-            SS<span className="text-[#FF5B3D]">.</span>
-          </span>
+          <img
+            src="/icons/ss-icon-photo.png"
+            alt="Sushanth Sapare Logo"
+            className="h-8 sm:h-9 w-auto object-contain"
+          />
         </a>
 
         <p className="text-[#9E9E9E] text-sm text-center">
