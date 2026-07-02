@@ -249,8 +249,9 @@ const FAN_ARTS: FanArtItem[] = [
 
 const SKILL_GROUPS = [
   {
+    num: "01",
     category: "Poster Design",
-    color: "#FF5B3D",
+    description: "Movie publicity, branding and print creatives.",
     skills: [
       "Photoshop",
       "Illustrator",
@@ -260,8 +261,9 @@ const SKILL_GROUPS = [
     ],
   },
   {
+    num: "02",
     category: "Motion Design",
-    color: "#F2D16B",
+    description: "Motion graphics and animation workflows.",
     skills: [
       "After Effects",
       "Adobe XD",
@@ -269,16 +271,18 @@ const SKILL_GROUPS = [
     ],
   },
   {
+    num: "03",
     category: "Video Editing",
-    color: "#31A8FF",
+    description: "Editing cinematic promotional content.",
     skills: [
       "Premiere Pro",
       "CapCut",
     ],
   },
   {
+    num: "04",
     category: "Web Design",
-    color: "#34D399",
+    description: "Interactive interfaces and responsive experiences.",
     skills: [
       "Figma",
       "HTML",
@@ -1136,59 +1140,97 @@ function Skills() {
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="skills" ref={ref} className="py-28 lg:py-44 bg-[#090909]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="05 — SKILLS" />
+    <section id="skills" ref={ref} className="py-28 lg:py-44 bg-[#090909] relative overflow-hidden">
+      {/* Extremely subtle background texture and glow */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#FF5B3D]/[0.025] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#FF5B3D]/[0.02] rounded-full blur-[120px] pointer-events-none" />
+      <div
+        className="absolute inset-0 opacity-[0.015] pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }}
+      />
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 mb-14 lg:mb-20">
-          <h2
-            className="font-black leading-[0.88] tracking-tight text-white"
-            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
-          >
-            EXPERTISE &<br />
-            <span className="text-[#31A8FF]">CRAFT</span>
-          </h2>
-          <p className="text-[#9E9E9E] text-lg leading-relaxed self-end">
-            Specialized tools and creative methodologies honed across industry-leading Adobe design software, interactive UI/UX environments, and visual storytelling disciplines.
-          </p>
-        </div>
-
-        <div className="space-y-12">
-          {SKILL_GROUPS.map((group, gIdx) => (
-            <motion.div
-              key={group.category}
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: gIdx * 0.15, duration: 0.7 }}
-              className="bg-[#141414] border border-white/[0.06] rounded-3xl p-8 lg:p-10"
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Editorial Heading & Philosophy */}
+          <div className="lg:col-span-5 lg:sticky lg:top-36">
+            <SectionLabel label="05 — SKILLS" />
+            <h2
+              className="font-black leading-[0.88] tracking-tight text-white mb-6"
+              style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: group.color }} />
-                <h3 className="text-xl font-bold text-white tracking-wide uppercase font-mono text-sm">
+              EXPERTISE &<br />
+              <span className="text-[#31A8FF]">CRAFT</span>
+            </h2>
+            <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-md">
+              Specialized tools and creative methodologies honed across industry-leading Adobe design software, interactive UI/UX environments, and visual storytelling disciplines.
+            </p>
+          </div>
+
+          {/* Right Column: Staggered Category Cards Grid */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 items-start">
+            {SKILL_GROUPS.map((group, gIdx) => (
+              <motion.div
+                key={group.category}
+                initial={{ opacity: 0, y: 28 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: gIdx * 0.12, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{
+                  y: -6,
+                  rotate: gIdx % 2 === 0 ? 1 : -1,
+                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.8)",
+                }}
+                className={`bg-[#141414] border border-white/[0.08] hover:border-[#FF5B3D]/40 rounded-3xl p-7 sm:p-8 transition-all duration-300 relative overflow-hidden group ${
+                  gIdx % 2 === 1 ? "sm:mt-12" : ""
+                }`}
+              >
+                {/* Small section label */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#FF5B3D]">
+                    // {group.num} TOOLKIT
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5B3D]/40 group-hover:bg-[#FF5B3D] transition-colors" />
+                </div>
+
+                {/* Large category title */}
+                <h3
+                  className="font-black text-white leading-tight mb-2 tracking-wide"
+                  style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.75rem, 3vw, 2.3rem)" }}
+                >
                   {group.category}
                 </h3>
-              </div>
 
-              <div className="flex flex-wrap gap-3 sm:gap-4">
-                {group.skills.map((skill) => (
-                  <motion.div
-                    key={`${group.category}-${skill}`}
-                    className="px-5 py-3 rounded-2xl bg-[#1d1d1d] border border-white/[0.08] text-sm sm:text-base font-semibold text-white/90 cursor-default flex items-center gap-2.5 transition-all duration-300 shadow-sm"
-                    whileHover={{
-                      y: -4,
-                      scale: 1.04,
-                      borderColor: group.color,
-                      backgroundColor: "#242424",
-                      boxShadow: `0 8px 20px -6px ${group.color}35`,
-                    }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: group.color }} />
-                    {skill}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                {/* Short one-line description */}
+                <p className="text-xs sm:text-sm text-[#9E9E9E] leading-relaxed mb-5">
+                  {group.description}
+                </p>
+
+                {/* Divider */}
+                <div className="w-full h-px bg-white/[0.08] group-hover:bg-[#FF5B3D]/30 transition-colors duration-300 mb-6" />
+
+                {/* Skill chips */}
+                <div className="flex flex-wrap gap-2.5">
+                  {group.skills.map((skill) => (
+                    <motion.div
+                      key={`${group.category}-${skill}`}
+                      className="px-4.5 py-2.5 rounded-xl bg-[#1b1b1b] border border-white/[0.08] text-xs sm:text-sm font-semibold text-white/90 cursor-default transition-all duration-300 shadow-sm"
+                      whileHover={{
+                        y: -3,
+                        scale: 1.03,
+                        borderColor: "rgba(255, 91, 61, 0.5)",
+                        backgroundColor: "#222222",
+                        boxShadow: "0 6px 16px -4px rgba(255, 91, 61, 0.18)",
+                      }}
+                    >
+                      {skill}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
