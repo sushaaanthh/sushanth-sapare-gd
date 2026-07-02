@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import {
   ArrowUpRight, Menu, X, Mail,
-  Instagram, Linkedin, Github, ExternalLink,
+  Instagram, Linkedin, ExternalLink,
   ChevronLeft, ChevronRight
 } from "lucide-react";
 import { GrainOverlay } from "./components/ui/grain-overlay";
@@ -1352,42 +1352,9 @@ function Contact() {
               SOMETHING<br />
               <span className="text-[#FF5B3D]">MEMORABLE.</span>
             </h2>
-            <p className="text-[#9E9E9E] text-lg leading-relaxed mb-10">
+            <p className="text-[#9E9E9E] text-lg leading-relaxed">
               Open to theatrical film campaigns, brand identity overhauls, motion graphics work, and creative collaborations. Let's make every frame extraordinary.
             </p>
-
-            <div className="space-y-4 mb-10">
-              <a
-                href="mailto:sushanthsapare@gmail.com"
-                className="flex items-center gap-4 text-white/70 hover:text-white transition-colors duration-300 group"
-              >
-                <div className="w-11 h-11 bg-[#171717] border border-white/[0.08] rounded-full flex items-center justify-center group-hover:border-[#FF5B3D]/50 transition-colors">
-                  <Mail className="w-4 h-4 text-[#FF5B3D]" />
-                </div>
-                <span className="text-base font-medium">sushanthsapare@gmail.com</span>
-              </a>
-            </div>
-
-            <div className="flex items-center gap-3">
-              {[
-                { Icon: Linkedin, label: "LinkedIn", url: "#" },
-                { Icon: Instagram, label: "Instagram", url: "#" },
-                { Icon: ExternalLink, label: "Behance", url: "#" },
-                { Icon: Github, label: "Portfolio", url: "#" },
-              ].map(({ Icon, label, url }) => (
-                <motion.a
-                  key={label}
-                  href={url}
-                  aria-label={label}
-                  className="px-4 py-2.5 bg-[#171717] border border-white/[0.08] rounded-full flex items-center gap-2 text-white/60 hover:text-white hover:border-white/25 transition-all duration-300 text-xs font-semibold"
-                  whileHover={{ scale: 1.06, y: -2 }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  <Icon className="w-3.5 h-3.5 text-[#FF5B3D]" />
-                  <span>{label}</span>
-                </motion.a>
-              ))}
-            </div>
           </motion.div>
 
           {/* Right Side: Premium Contact Card */}
@@ -1487,27 +1454,12 @@ function Footer() {
           © 2026 | Sushanth Sapare
         </p>
 
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-4">
-            {[Linkedin, Instagram, ExternalLink, Github].map((Icon, i) => (
-              <motion.a
-                key={i}
-                href="#"
-                className="text-white/40 hover:text-white transition-colors duration-300"
-                whileHover={{ y: -2 }}
-              >
-                <Icon className="w-4 h-4" />
-              </motion.a>
-            ))}
-          </div>
-
-          <button
-            onClick={scrollToTop}
-            className="px-4 py-2 rounded-full bg-[#171717] border border-white/10 hover:border-[#FF5B3D]/50 text-xs text-white font-medium transition-all duration-300 flex items-center gap-1.5"
-          >
-            Back to Top ↑
-          </button>
-        </div>
+        <button
+          onClick={scrollToTop}
+          className="px-4 py-2 rounded-full bg-[#171717] border border-white/10 hover:border-[#FF5B3D]/50 text-xs text-white font-medium transition-all duration-300 flex items-center gap-1.5"
+        >
+          Back to Top ↑
+        </button>
       </div>
     </footer>
   );
