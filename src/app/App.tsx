@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useInView } from "motion/react";
 import {
   ArrowUpRight, Menu, X, Mail, Send,
   Instagram, Linkedin, Github, ExternalLink,
-  ChevronLeft, ChevronRight, Sparkles, XCircle
+  ChevronLeft, ChevronRight, Sparkles
 } from "lucide-react";
 import { GrainOverlay } from "./components/ui/grain-overlay";
 import { SectionLabel } from "./components/ui/section-label";
@@ -65,12 +65,8 @@ const STATS = [
 export interface CampaignItem {
   id: number;
   title: string;
-  category: string;
   year: string;
-  role: string;
-  color: string;
   img: string;
-  tall: boolean;
   description: string;
 }
 
@@ -78,123 +74,86 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
   {
     id: 1,
     title: "Game Changer",
-    category: "Film Publicity",
-    year: "2024",
-    role: "Lead Designer",
-    color: "#FF5B3D",
-    img: "/publicity/con-kaun.jpg",
-    tall: true,
-    description: "Spearheaded the theatrical publicity design and visual identity for this pan-India blockbuster. Developed high-impact theatrical posters, teaser graphics, and digital countdown assets designed to evoke cinematic scale and intensity."
+    year: "2025",
+    img: "/publicity/game-changer.jpg",
+    description: "Milestone & Countdown Posters",
   },
   {
     id: 2,
     title: "Keedaa Cola",
-    category: "Film Campaign",
     year: "2023",
-    role: "Poster Designer",
-    color: "#F2D16B",
     img: "/publicity/keedaa-cola.jpg",
-    tall: false,
-    description: "Crafted quirky, stylized character posters and promotional title cards reflecting the film's eccentric crime-comedy tone. Focused on vibrant color theory and unconventional typography."
+    description: "Announcement Posters",
   },
   {
     id: 3,
     title: "Kaantha",
-    category: "Brand Identity",
-    year: "2024",
-    role: "Creative Director",
-    color: "#A78BFA",
+    year: "2025",
     img: "/publicity/kaantha-reel-thumb.jpg",
-    tall: true,
-    description: "Directed the complete visual design system from pre-release announcement posters to official theatrical standees, establishing an atmospheric and moody visual narrative."
+    description: "Reel Thumb & Google Ads Posters",
   },
   {
     id: 4,
-    title: "Bootcut Balaraju",
-    category: "Film Publicity",
-    year: "2023",
-    role: "Graphic Designer",
-    color: "#34D399",
-    img: "/publicity/maya-poster.jpg",
-    tall: false,
-    description: "Designed vibrant, mass-appeal theatrical posters and digital banners celebrating rustic energy and energetic character dynamics."
+    title: "Kishkindhapuri",
+    year: "2025",
+    img: "/publicity/kishkindhapuri-2dtg.jpg",
+    description: "Countdown Posters",
   },
   {
     id: 5,
-    title: "Kishkindhapuri",
-    category: "Film Campaign",
-    year: "2024",
-    role: "Visual Designer",
-    color: "#F97316",
-    img: "/publicity/kishkindhapuri-2dtg.jpg",
-    tall: true,
-    description: "Formulated mythical and mysterious visual artworks for promotional campaigns, blending textured illustrations with dramatic lighting."
+    title: "Don Bosko",
+    year: "2026",
+    img: "/publicity/don-bosko.jpg",
+    description: "Onboarding Posters",
   },
   {
     id: 6,
     title: "Rathnam",
-    category: "Motion Graphics",
     year: "2024",
-    role: "Motion Designer",
-    color: "#EC4899",
     img: "/publicity/rathnam-reel.jpg",
-    tall: false,
-    description: "Produced high-energy action release posters and animated title reveals for digital promotions and theatrical display screens."
+    description: "Reel Thumb & Public Rxn Videos",
   },
   {
     id: 7,
-    title: "Gam Gam Ganesha",
-    category: "Film Publicity",
-    year: "2023",
-    role: "Poster Designer",
-    color: "#F2D16B",
-    img: "/publicity/gam-gam-ganesha-spotify-backdrop.jpg",
-    tall: true,
-    description: "Designed festival-themed release posters and engaging character introduction cards with dynamic typography and celebratory palettes."
+    title: "Makutam",
+    year: "2026",
+    img: "/publicity/makutam-hd.jpg",
+    description: "Announcement, Wishes & Review Posters",
   },
   {
     id: 8,
     title: "Raakaasa",
-    category: "Film Campaign",
-    year: "2024",
-    role: "Lead Designer",
-    color: "#FF5B3D",
+    year: "2026",
     img: "/publicity/raakaasa.jpg",
-    tall: false,
-    description: "Created gritty, high-contrast promotional creatives and title treatments emphasizing tension and cinematic thrill."
+    description: "Onboarding Posters",
   },
   {
     id: 9,
-    title: "Makutam",
-    category: "Brand Identity",
-    year: "2023",
-    role: "Designer",
-    color: "#60A5FA",
-    img: "/publicity/makutam-hd.jpg",
-    tall: true,
-    description: "Executed royal and regal title layouts, key art concepts, and promotional social collaterals."
+    title: "Gam Gam Ganesha",
+    year: "2024",
+    img: "/publicity/gam-gam-ganesha-spotify-backdrop.jpg",
+    description: "Story Posts & Spotify Backdrops",
   },
   {
     id: 10,
-    title: "Don Bosko",
-    category: "Film Publicity",
+    title: "17 YORC",
     year: "2024",
-    role: "Graphic Designer",
-    color: "#A78BFA",
-    img: "/publicity/don-bosko.jpg",
-    tall: false,
-    description: "Designed sleek, modern promotional posters and character posters tailored for urban youth audiences."
+    img: "/publicity/17-yorc.jpg",
+    description: "17 Years of Ram Charan in Indian Cinema Trend Poster Campaign",
   },
   {
     id: 11,
-    title: "17 YORC",
-    category: "Social Campaign",
-    year: "2024",
-    role: "Visual Designer",
-    color: "#34D399",
-    img: "/publicity/17-yorc.jpg",
-    tall: true,
-    description: "Delivered cohesive visual storytelling assets from announcement flyers to countdown story templates across digital channels."
+    title: "Con Kaun",
+    year: "2025",
+    img: "/publicity/con-kaun.jpg",
+    description: "Concept Poster",
+  },
+  {
+    id: 12,
+    title: "Maya (2025)",
+    year: "2025",
+    img: "/publicity/maya-poster.jpg",
+    description: "Concept Poster, PreLook & Motion Graphics",
   },
 ];
 
@@ -713,8 +672,7 @@ const PublicityCampaignCard: React.FC<{
   return (
     <motion.div
       ref={ref}
-      className="relative rounded-2xl overflow-hidden cursor-pointer bg-[#171717] group mb-6"
-      style={{ breakInside: "avoid" }}
+      className="relative rounded-2xl overflow-hidden cursor-pointer bg-[#171717] group shadow-xl"
       initial={{ opacity: 0, y: 28 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.05, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -723,50 +681,29 @@ const PublicityCampaignCard: React.FC<{
       onClick={() => onSelect(campaign)}
       whileHover={{ y: -6 }}
     >
-      <div className="relative overflow-hidden" style={{ aspectRatio: campaign.tall ? "3/4" : "4/3" }}>
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/5" }}>
         <motion.img
           src={campaign.img}
           alt={campaign.title}
           className="w-full h-full object-cover"
-          animate={{ scale: hovered ? 1.09 : 1 }}
+          animate={{ scale: hovered ? 1.07 : 1 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
 
-        <motion.div
-          className="absolute inset-0"
-          style={{ background: `linear-gradient(135deg, ${campaign.color}22 0%, transparent 60%)` }}
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-        />
-
-        <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
-          <div className="flex items-center gap-2 mb-2.5">
-            <span
-              className="text-xs px-3 py-1 rounded-full font-semibold border"
-              style={{
-                color: campaign.color,
-                borderColor: `${campaign.color}40`,
-                background: `${campaign.color}15`,
-              }}
-            >
-              {campaign.category}
-            </span>
-            <span className="text-xs text-white/40">{campaign.year}</span>
-          </div>
+        <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
+          <span className="text-xs font-bold text-[#FF5B3D] tracking-widest uppercase mb-1.5">
+            {campaign.year}
+          </span>
           <h3
-            className="font-black text-white leading-tight"
-            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)" }}
+            className="font-black text-white leading-tight mb-2"
+            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.75rem, 3vw, 2.4rem)" }}
           >
             {campaign.title}
           </h3>
-          <motion.p
-            className="text-sm text-white/60 mt-1"
-            animate={{ opacity: hovered ? 1 : 0.7, y: hovered ? 0 : 4 }}
-            transition={{ duration: 0.3 }}
-          >
-            {campaign.role} • Click to expand preview
-          </motion.p>
+          <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-medium line-clamp-2">
+            {campaign.description}
+          </p>
         </div>
 
         <motion.div
@@ -784,6 +721,16 @@ const PublicityCampaignCard: React.FC<{
 
 function PublicityCampaigns() {
   const [selected, setSelected] = useState<CampaignItem | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    if (selected) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selected]);
 
   return (
     <section id="publicity" className="py-28 lg:py-44 bg-[#090909]">
@@ -805,7 +752,7 @@ function PublicityCampaigns() {
           </p>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {PUBLICITY_CAMPAIGNS.map((campaign, i) => (
             <PublicityCampaignCard
               key={campaign.id}
@@ -817,80 +764,47 @@ function PublicityCampaigns() {
         </div>
       </div>
 
-      {/* Expandable Modal Preview */}
+      {/* Clean Fullscreen Modal Preview */}
       <AnimatePresence>
         {selected && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-10"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <div
-              className="absolute inset-0 bg-black/85 backdrop-blur-md"
+              className="absolute inset-0 bg-black/90 backdrop-blur-md cursor-pointer"
               onClick={() => setSelected(null)}
             />
-            <motion.div
-              className="relative z-10 max-w-4xl w-full bg-[#141414] border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
-              initial={{ scale: 0.92, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.92, y: 20 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-6 right-6 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
+              aria-label="Close modal"
             >
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
-              >
-                <XCircle className="w-6 h-6" />
-              </button>
+              <X className="w-6 h-6" />
+            </button>
 
-              <div className="w-full md:w-1/2 bg-black flex items-center justify-center overflow-hidden min-h-[320px] md:min-h-[500px]">
+            <motion.div
+              className="relative z-10 flex flex-col items-center justify-center max-w-5xl max-h-[90vh] pointer-events-none"
+              initial={{ scale: 0.94, y: 16 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.94, y: 16 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="overflow-hidden rounded-2xl shadow-2xl max-h-[80vh] border border-white/10 pointer-events-auto">
                 <img
                   src={selected.img}
                   alt={selected.title}
-                  className="w-full h-full object-contain max-h-[80vh]"
+                  className="w-auto h-auto max-h-[80vh] object-contain block mx-auto"
                 />
               </div>
-
-              <div className="w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-between overflow-y-auto">
-                <div>
-                  <div className="flex items-center gap-2.5 mb-4">
-                    <span
-                      className="text-xs px-3 py-1 rounded-full font-semibold border"
-                      style={{
-                        color: selected.color,
-                        borderColor: `${selected.color}40`,
-                        background: `${selected.color}15`,
-                      }}
-                    >
-                      {selected.category}
-                    </span>
-                    <span className="text-xs text-white/40">{selected.year}</span>
-                  </div>
-
-                  <h3
-                    className="text-4xl lg:text-5xl font-black text-white mb-2"
-                    style={{ fontFamily: DISPLAY_FONT }}
-                  >
-                    {selected.title}
-                  </h3>
-                  <p className="text-sm font-semibold text-[#FF5B3D] mb-6">{selected.role}</p>
-
-                  <div className="border-t border-white/[0.08] pt-6 mb-6">
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-[#9E9E9E] mb-2.5">
-                      Campaign Overview
-                    </h4>
-                    <p className="text-white/75 text-sm sm:text-base leading-relaxed">
-                      {selected.description}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-4 flex items-center justify-between border-t border-white/[0.08] text-xs text-white/40">
-                  <span>Theatrical Film Archive</span>
-                  <span>Sushanth Sapare Design</span>
-                </div>
-              </div>
+              <h3
+                className="font-black text-white mt-4 text-center tracking-wide pointer-events-auto"
+                style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}
+              >
+                {selected.title}
+              </h3>
             </motion.div>
           </motion.div>
         )}
