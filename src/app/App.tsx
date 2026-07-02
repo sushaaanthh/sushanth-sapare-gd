@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useInView } from "motion/react";
 import {
   ArrowUpRight, Menu, X, Mail, Send,
   Instagram, Linkedin, Github, ExternalLink,
-  ChevronLeft, ChevronRight, Sparkles
+  ChevronLeft, ChevronRight
 } from "lucide-react";
 import { GrainOverlay } from "./components/ui/grain-overlay";
 import { SectionLabel } from "./components/ui/section-label";
@@ -157,58 +157,76 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
   },
 ];
 
-const SOCIAL_MEDIA_CAMPAIGNS = [
+export interface SocialMediaCampaignItem {
+  id: number;
+  brand: string;
+  type: string;
+  images: string[];
+}
+
+const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
   {
     id: 1,
-    brand: "Loukya Entertainments",
-    abbr: "LE",
-    category: "Production House Marketing",
-    color: "#FF5B3D",
-    description: "End-to-end social media creative direction for feature film announcements, festival greetings, behind-the-scenes countdowns, and audience engagement contests.",
-    carouselPlaceholders: [
-      { title: "Teachers' Day Feature", img: "/social-campaigns/loukya-ents-teachers-day.jpg" },
-      { title: "Brand Identity Highlight", img: "/branding/fanart3-orange.jpg" },
-      { title: "Festival Campaign Banner", img: "/social-campaigns/pink-ele-vc-wishes.jpg" },
-    ]
+    brand: "Pink Elephant Pictures",
+    type: "Film Production Company",
+    images: [
+      "/social-campaigns/pinkele1.jpg",
+      "/social-campaigns/pinkele2.jpg",
+      "/social-campaigns/pinkele3.jpg",
+    ],
   },
   {
     id: 2,
-    brand: "Pink Elephant Pictures",
-    abbr: "PEP",
-    category: "Digital Campaign Strategy",
-    color: "#F2D16B",
-    description: "Designed vibrant promotional tiles, Instagram story series, cast reveals, and motion graphic reels driving substantial organic fan interactions.",
-    carouselPlaceholders: [
-      { title: "Anniversary Wishes", img: "/social-campaigns/pink-ele-vc-wishes.jpg" },
-      { title: "Digital Campaign Showcase", img: "/social-campaigns/loukya-ents-teachers-day.jpg" },
-      { title: "Visual Concept Art", img: "/branding/fanart3-orange.jpg" },
-    ]
+    brand: "Loukya Entertainments",
+    type: "Film Production Company",
+    images: [
+      "/social-campaigns/loukya1.jpg",
+      "/social-campaigns/loukya2.jpg",
+      "/social-campaigns/loukya3.jpg",
+    ],
   },
   {
     id: 3,
-    brand: "AHA TV",
-    abbr: "AHA",
-    category: "OTT Platform Creatives",
-    color: "#A78BFA",
-    description: "Created high-converting digital thumbnails, web banners, premiere countdown cards, and interactive weekend watch lists for regional OTT releases.",
-    carouselPlaceholders: [
-      { title: "London Kids Premiere Spotlight", img: "/social-campaigns/london-kids.jpg" },
-      { title: "Streaming Now Banner", img: "/social-campaigns/sreemaya-ents.jpg" },
-      { title: "Creative Key Art", img: "/branding/fanart3-orange.jpg" },
-    ]
+    brand: "Sreemaya Entertainments",
+    type: "Film Production Company",
+    images: [
+      "/social-campaigns/sreemaya1.jpg",
+      "/social-campaigns/sreemaya2.jpg",
+      "/social-campaigns/sreemaya3.jpg",
+    ],
   },
   {
     id: 4,
     brand: "AMC Engineering College",
-    abbr: "AMC",
-    category: "Institutional Brand & Events",
-    color: "#34D399",
-    description: "Formulated engaging campus fest campaigns, admission spotlight infographics, cultural fest posters, and student leadership announcements.",
-    carouselPlaceholders: [
-      { title: "Institutional Event Key Art", img: "/social-campaigns/sreemaya-ents.jpg" },
-      { title: "Campus Spotlight Banner", img: "/social-campaigns/london-kids.jpg" },
-      { title: "Symposium Campaign", img: "/social-campaigns/loukya-ents-teachers-day.jpg" },
-    ]
+    type: "Educational Institution",
+    images: [
+      "/social-campaigns/amc1.jpg",
+      "/social-campaigns/amc2.jpg",
+      "/social-campaigns/amc3.jpg",
+      "/social-campaigns/amc4.jpg",
+    ],
+  },
+  {
+    id: 5,
+    brand: "London Kids Pre-School",
+    type: "Educational Institution",
+    images: [
+      "/social-campaigns/london-kids1.jpg",
+      "/social-campaigns/london-kids2.jpg",
+      "/social-campaigns/london-kids3.jpg",
+      "/social-campaigns/london-kids4.jpg",
+      "/social-campaigns/london-kids5.jpg",
+      "/social-campaigns/london-kids6.jpg",
+    ],
+  },
+  {
+    id: 6,
+    brand: "Inovact Social",
+    type: "Networking App",
+    images: [
+      "/social-campaigns/inovact1.jpg",
+      "/social-campaigns/inovact2.jpg",
+    ],
   },
 ];
 
@@ -349,9 +367,8 @@ function Nav() {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => scrollToSection(e, item.id)}
-                className={`relative text-sm transition-colors duration-300 tracking-wide py-2 ${
-                  isActive ? "text-white font-bold" : "text-white/50 hover:text-white font-medium"
-                }`}
+                className={`relative text-sm transition-colors duration-300 tracking-wide py-2 ${isActive ? "text-white font-bold" : "text-white/50 hover:text-white font-medium"
+                  }`}
               >
                 {item.label}
                 {isActive && (
@@ -818,16 +835,14 @@ function PublicityCampaigns() {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function SocialMediaCampaigns() {
-  const [activeCarouselIndex, setActiveCarouselIndex] = useState<{ [key: number]: number }>({
-    1: 0, 2: 0, 3: 0, 4: 0
-  });
+  const [activeCarouselIndex, setActiveCarouselIndex] = useState<{ [key: number]: number }>({});
 
   const nextSlide = (id: number, len: number) => {
-    setActiveCarouselIndex(prev => ({ ...prev, [id]: (prev[id] + 1) % len }));
+    setActiveCarouselIndex(prev => ({ ...prev, [id]: ((prev[id] || 0) + 1) % len }));
   };
 
   const prevSlide = (id: number, len: number) => {
-    setActiveCarouselIndex(prev => ({ ...prev, [id]: (prev[id] - 1 + len) % len }));
+    setActiveCarouselIndex(prev => ({ ...prev, [id]: ((prev[id] || 0) - 1 + len) % len }));
   };
 
   return (
@@ -841,19 +856,19 @@ function SocialMediaCampaigns() {
               className="font-black leading-[0.88] tracking-tight text-white"
               style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
             >
-              DIGITAL & SOCIAL<br />
-              <span className="text-[#F2D16B]">STRATEGIES</span>
+              SOCIAL MEDIA<br />
+              <span className="text-[#FF5B3D]">CAMPAIGNS</span>
             </h2>
           </div>
           <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-md lg:self-end">
-            Distinct from theatrical posters, these comprehensive social media campaigns drive brand engagement across production houses, OTT platforms, and institutional organizations.
+            A curated showcase of comprehensive social media campaigns and digital strategies designed for leading film production houses, networking apps, and educational institutions.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {SOCIAL_MEDIA_CAMPAIGNS.map((brandItem, i) => {
             const currentSlide = activeCarouselIndex[brandItem.id] || 0;
-            const activeHolder = brandItem.carouselPlaceholders[currentSlide];
+            const activeImage = brandItem.images[currentSlide] || brandItem.images[0];
 
             return (
               <motion.div
@@ -863,56 +878,40 @@ function SocialMediaCampaigns() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ borderColor: `${brandItem.color}35` }}
+                whileHover={{ borderColor: "rgba(255, 91, 61, 0.35)" }}
               >
                 <div>
-                  {/* Brand Header */}
-                  <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-3.5">
-                      <div
-                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-black"
-                        style={{ background: `${brandItem.color}18`, color: brandItem.color, fontFamily: DISPLAY_FONT }}
-                      >
-                        {brandItem.abbr}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white leading-snug">{brandItem.brand}</h3>
-                        <span className="text-xs text-[#9E9E9E]">{brandItem.category}</span>
-                      </div>
-                    </div>
-                    <span
-                      className="text-xs px-3 py-1 rounded-full font-semibold"
-                      style={{ background: `${brandItem.color}15`, color: brandItem.color }}
-                    >
-                      Social Campaign
+                  {/* Clean Brand Header */}
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold text-white leading-snug tracking-wide mb-1.5">
+                      {brandItem.brand}
+                    </h3>
+                    <span className="text-xs font-semibold uppercase tracking-widest text-[#FF5B3D]">
+                      {brandItem.type}
                     </span>
                   </div>
-
-                  <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-8">
-                    {brandItem.description}
-                  </p>
                 </div>
 
-                {/* Interactive Carousel Placeholder */}
+                {/* Interactive Carousel */}
                 <div className="bg-[#101010] border border-white/[0.05] rounded-2xl p-4 overflow-hidden">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-semibold text-white/50 tracking-wider uppercase flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-[#F2D16B]" /> Campaign Carousel Showcase
+                    <span className="text-xs font-semibold text-white/50 tracking-wider uppercase">
+                      Campaign Showcase
                     </span>
                     <div className="flex items-center gap-1">
                       <button
-                        onClick={() => prevSlide(brandItem.id, brandItem.carouselPlaceholders.length)}
-                        className="p-1 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 transition-colors"
+                        onClick={() => prevSlide(brandItem.id, brandItem.images.length)}
+                        className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition-colors"
                         aria-label="Previous slide"
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </button>
-                      <span className="text-xs text-white/50 px-2 font-mono">
-                        {currentSlide + 1} / {brandItem.carouselPlaceholders.length}
+                      <span className="text-xs text-white/60 px-2 font-mono">
+                        {currentSlide + 1} / {brandItem.images.length}
                       </span>
                       <button
-                        onClick={() => nextSlide(brandItem.id, brandItem.carouselPlaceholders.length)}
-                        className="p-1 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 transition-colors"
+                        onClick={() => nextSlide(brandItem.id, brandItem.images.length)}
+                        className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition-colors"
                         aria-label="Next slide"
                       >
                         <ChevronRight className="w-4 h-4" />
@@ -920,26 +919,19 @@ function SocialMediaCampaigns() {
                     </div>
                   </div>
 
-                  <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-black group/carousel">
+                  <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-black group/carousel" style={{ aspectRatio: "4/5" }}>
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={currentSlide}
-                        src={activeHolder.img}
-                        alt={activeHolder.title}
-                        className="w-full h-full object-cover"
+                        src={activeImage}
+                        alt={`${brandItem.brand} slide ${currentSlide + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover/carousel:scale-1.05"
                         initial={{ opacity: 0, scale: 1.05 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.35 }}
                       />
                     </AnimatePresence>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
-                      <span className="text-sm font-semibold text-white">{activeHolder.title}</span>
-                      <span className="text-[10px] uppercase tracking-widest text-white/50 bg-black/60 px-2 py-0.5 rounded">
-                        Carousel Slide #{currentSlide + 1}
-                      </span>
-                    </div>
                   </div>
                 </div>
               </motion.div>
