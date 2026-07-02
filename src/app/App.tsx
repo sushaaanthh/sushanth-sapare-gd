@@ -1,115 +1,58 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import {
   ArrowUpRight, Menu, X, Mail, Send,
   Instagram, Linkedin, Github, ExternalLink,
+  ChevronLeft, ChevronRight, Sparkles, XCircle
 } from "lucide-react";
+import { GrainOverlay } from "./components/ui/grain-overlay";
+import { SectionLabel } from "./components/ui/section-label";
+import { AnimatedCounter } from "./components/ui/animated-counter";
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// DATA
+// DATA & CONSTANTS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-const NAV_LINKS = ["Work", "About", "Skills", "Experience", "Contact"];
+const DISPLAY_FONT = "'Big Shoulders Display', sans-serif";
+
+const NAV_ITEMS = [
+  { label: "Home", id: "home" },
+  { label: "About", id: "about" },
+  { label: "Publicity", id: "publicity" },
+  { label: "Campaigns", id: "campaigns" },
+  { label: "Skills", id: "skills" },
+  { label: "Experience", id: "experience" },
+  { label: "Contact", id: "contact" },
+];
 
 const SPECIALTIES = [
-  "Film Publicity",
-  "Visual Storytelling",
+  "Film Publicity Designer",
   "Brand Identity",
   "Motion Graphics",
-  "Entertainment Marketing",
+  "Graphic Designer",
 ];
 
-const PROJECTS = [
+const HERO_COLLAGE = [
   {
-    id: 1, title: "Game Changer", category: "Film Publicity", year: "2024",
-    role: "Lead Designer", color: "#FF5B3D",
-    img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&h=800&fit=crop&auto=format",
-    tall: true,
+    img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=280&h=380&fit=crop&auto=format",
+    style: { top: "12%", left: "58%", rotate: -5 },
+    delay: 0,
   },
   {
-    id: 2, title: "Keedaa Cola", category: "Film Campaign", year: "2023",
-    role: "Poster Designer", color: "#F2D16B",
-    img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&h=420&fit=crop&auto=format",
-    tall: false,
+    img: "https://images.unsplash.com/photo-1524781289445-ddf8ad4f31fe?w=240&h=340&fit=crop&auto=format",
+    style: { top: "5%", left: "74%", rotate: 4 },
+    delay: 0.15,
   },
   {
-    id: 3, title: "Kaantha", category: "Brand Identity", year: "2024",
-    role: "Creative Director", color: "#A78BFA",
-    img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=800&fit=crop&auto=format",
-    tall: true,
+    img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=220&h=300&fit=crop&auto=format",
+    style: { top: "50%", left: "62%", rotate: 3 },
+    delay: 0.3,
   },
   {
-    id: 4, title: "Bootcut Balaraju", category: "Film Publicity", year: "2023",
-    role: "Graphic Designer", color: "#34D399",
-    img: "https://images.unsplash.com/photo-1574267432553-4a9628a49e11?w=600&h=420&fit=crop&auto=format",
-    tall: false,
+    img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=200&h=280&fit=crop&auto=format",
+    style: { top: "45%", left: "79%", rotate: -3 },
+    delay: 0.45,
   },
-  {
-    id: 5, title: "Kishkindhapuri", category: "Film Campaign", year: "2024",
-    role: "Visual Designer", color: "#F97316",
-    img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&h=800&fit=crop&auto=format",
-    tall: true,
-  },
-  {
-    id: 6, title: "Rathnam", category: "Motion Graphics", year: "2024",
-    role: "Motion Designer", color: "#EC4899",
-    img: "https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=600&h=420&fit=crop&auto=format",
-    tall: false,
-  },
-  {
-    id: 7, title: "Gam Gam Ganesha", category: "Film Publicity", year: "2023",
-    role: "Poster Designer", color: "#F2D16B",
-    img: "https://images.unsplash.com/photo-1524781289445-ddf8ad4f31fe?w=600&h=800&fit=crop&auto=format",
-    tall: true,
-  },
-  {
-    id: 8, title: "Raakaasa", category: "Film Campaign", year: "2024",
-    role: "Lead Designer", color: "#FF5B3D",
-    img: "https://images.unsplash.com/photo-1478720568477-152d9b05c7ff?w=600&h=420&fit=crop&auto=format",
-    tall: false,
-  },
-  {
-    id: 9, title: "Makutam", category: "Brand Identity", year: "2023",
-    role: "Designer", color: "#60A5FA",
-    img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=600&h=800&fit=crop&auto=format",
-    tall: true,
-  },
-  {
-    id: 10, title: "Don Bosko", category: "Film Publicity", year: "2024",
-    role: "Graphic Designer", color: "#A78BFA",
-    img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&h=420&fit=crop&auto=format",
-    tall: false,
-  },
-  {
-    id: 11, title: "17 YORC", category: "Social Campaign", year: "2024",
-    role: "Visual Designer", color: "#34D399",
-    img: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=600&h=800&fit=crop&auto=format",
-    tall: true,
-  },
-];
-
-const SKILLS = [
-  { name: "Adobe Photoshop", level: "Expert" },
-  { name: "Illustrator", level: "Expert" },
-  { name: "InDesign", level: "Advanced" },
-  { name: "After Effects", level: "Advanced" },
-  { name: "Premiere Pro", level: "Advanced" },
-  { name: "Lightroom", level: "Expert" },
-  { name: "Adobe XD", level: "Proficient" },
-  { name: "Figma", level: "Proficient" },
-  { name: "Brand Identity", level: "Expert" },
-  { name: "Typography", level: "Expert" },
-  { name: "Motion Graphics", level: "Advanced" },
-  { name: "Film Publicity", level: "Expert" },
-  { name: "Visual Storytelling", level: "Expert" },
-  { name: "Social Media Design", level: "Advanced" },
-];
-
-const BRANDS = [
-  { name: "Loukya Entertainments", abbr: "LE" },
-  { name: "Pink Elephant Pictures", abbr: "PEP" },
-  { name: "AHA TV", abbr: "AHA" },
-  { name: "AMC Engineering College", abbr: "AMC" },
 ];
 
 const STATS = [
@@ -119,56 +62,239 @@ const STATS = [
   { value: 100, suffix: "+", label: "Designs Delivered" },
 ];
 
-const TOOLS = [
-  { name: "Photoshop", short: "Ps", color: "#31A8FF" },
-  { name: "Illustrator", short: "Ai", color: "#FF9A00" },
-  { name: "After Effects", short: "Ae", color: "#9999FF" },
-  { name: "Premiere", short: "Pr", color: "#EA77FF" },
-  { name: "InDesign", short: "Id", color: "#FF3366" },
-  { name: "Figma", short: "Fig", color: "#F24E1E" },
-  { name: "Adobe XD", short: "Xd", color: "#FF61F6" },
+export interface CampaignItem {
+  id: number;
+  title: string;
+  category: string;
+  year: string;
+  role: string;
+  color: string;
+  img: string;
+  tall: boolean;
+  description: string;
+}
+
+const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
+  {
+    id: 1,
+    title: "Game Changer",
+    category: "Film Publicity",
+    year: "2024",
+    role: "Lead Designer",
+    color: "#FF5B3D",
+    img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&h=1100&fit=crop&auto=format",
+    tall: true,
+    description: "Spearheaded the theatrical publicity design and visual identity for this pan-India blockbuster. Developed high-impact theatrical posters, teaser graphics, and digital countdown assets designed to evoke cinematic scale and intensity."
+  },
+  {
+    id: 2,
+    title: "Keedaa Cola",
+    category: "Film Campaign",
+    year: "2023",
+    role: "Poster Designer",
+    color: "#F2D16B",
+    img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=600&fit=crop&auto=format",
+    tall: false,
+    description: "Crafted quirky, stylized character posters and promotional title cards reflecting the film's eccentric crime-comedy tone. Focused on vibrant color theory and unconventional typography."
+  },
+  {
+    id: 3,
+    title: "Kaantha",
+    category: "Brand Identity",
+    year: "2024",
+    role: "Creative Director",
+    color: "#A78BFA",
+    img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=1100&fit=crop&auto=format",
+    tall: true,
+    description: "Directed the complete visual design system from pre-release announcement posters to official theatrical standees, establishing an atmospheric and moody visual narrative."
+  },
+  {
+    id: 4,
+    title: "Bootcut Balaraju",
+    category: "Film Publicity",
+    year: "2023",
+    role: "Graphic Designer",
+    color: "#34D399",
+    img: "https://images.unsplash.com/photo-1574267432553-4a9628a49e11?w=800&h=600&fit=crop&auto=format",
+    tall: false,
+    description: "Designed vibrant, mass-appeal theatrical posters and digital banners celebrating rustic energy and energetic character dynamics."
+  },
+  {
+    id: 5,
+    title: "Kishkindhapuri",
+    category: "Film Campaign",
+    year: "2024",
+    role: "Visual Designer",
+    color: "#F97316",
+    img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&h=1100&fit=crop&auto=format",
+    tall: true,
+    description: "Formulated mythical and mysterious visual artworks for promotional campaigns, blending textured illustrations with dramatic lighting."
+  },
+  {
+    id: 6,
+    title: "Rathnam",
+    category: "Motion Graphics",
+    year: "2024",
+    role: "Motion Designer",
+    color: "#EC4899",
+    img: "https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=800&h=600&fit=crop&auto=format",
+    tall: false,
+    description: "Produced high-energy action release posters and animated title reveals for digital promotions and theatrical display screens."
+  },
+  {
+    id: 7,
+    title: "Gam Gam Ganesha",
+    category: "Film Publicity",
+    year: "2023",
+    role: "Poster Designer",
+    color: "#F2D16B",
+    img: "https://images.unsplash.com/photo-1524781289445-ddf8ad4f31fe?w=800&h=1100&fit=crop&auto=format",
+    tall: true,
+    description: "Designed festival-themed release posters and engaging character introduction cards with dynamic typography and celebratory palettes."
+  },
+  {
+    id: 8,
+    title: "Raakaasa",
+    category: "Film Campaign",
+    year: "2024",
+    role: "Lead Designer",
+    color: "#FF5B3D",
+    img: "https://images.unsplash.com/photo-1478720568477-152d9b05c7ff?w=800&h=600&fit=crop&auto=format",
+    tall: false,
+    description: "Created gritty, high-contrast promotional creatives and title treatments emphasizing tension and cinematic thrill."
+  },
+  {
+    id: 9,
+    title: "Makutam",
+    category: "Brand Identity",
+    year: "2023",
+    role: "Designer",
+    color: "#60A5FA",
+    img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=800&h=1100&fit=crop&auto=format",
+    tall: true,
+    description: "Executed royal and regal title layouts, key art concepts, and promotional social collaterals."
+  },
+  {
+    id: 10,
+    title: "Don Bosko",
+    category: "Film Publicity",
+    year: "2024",
+    role: "Graphic Designer",
+    color: "#A78BFA",
+    img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=800&h=600&fit=crop&auto=format",
+    tall: false,
+    description: "Designed sleek, modern promotional posters and character posters tailored for urban youth audiences."
+  },
+  {
+    id: 11,
+    title: "17 YORC",
+    category: "Social Campaign",
+    year: "2024",
+    role: "Visual Designer",
+    color: "#34D399",
+    img: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=800&h=1100&fit=crop&auto=format",
+    tall: true,
+    description: "Delivered cohesive visual storytelling assets from announcement flyers to countdown story templates across digital channels."
+  },
 ];
 
-const TIMELINE = [
+const SOCIAL_MEDIA_CAMPAIGNS = [
+  {
+    id: 1,
+    brand: "Loukya Entertainments",
+    abbr: "LE",
+    category: "Production House Marketing",
+    color: "#FF5B3D",
+    description: "End-to-end social media creative direction for feature film announcements, festival greetings, behind-the-scenes countdowns, and audience engagement contests.",
+    carouselPlaceholders: [
+      { title: "Title Announcement", img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&h=500&fit=crop&auto=format" },
+      { title: "Teaser Countdown", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&h=500&fit=crop&auto=format" },
+      { title: "Release Day Banner", img: "https://images.unsplash.com/photo-1460881680858-30d872d5b530?w=500&h=500&fit=crop&auto=format" },
+    ]
+  },
+  {
+    id: 2,
+    brand: "Pink Elephant Pictures",
+    abbr: "PEP",
+    category: "Digital Campaign Strategy",
+    color: "#F2D16B",
+    description: "Designed vibrant promotional tiles, Instagram story series, cast reveals, and motion graphic reels driving substantial organic fan interactions.",
+    carouselPlaceholders: [
+      { title: "Character Reveal 01", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=500&fit=crop&auto=format" },
+      { title: "Music Video Promo", img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&h=500&fit=crop&auto=format" },
+      { title: "Milestone Celebration", img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=500&fit=crop&auto=format" },
+    ]
+  },
+  {
+    id: 3,
+    brand: "AHA TV",
+    abbr: "AHA",
+    category: "OTT Platform Creatives",
+    color: "#A78BFA",
+    description: "Created high-converting digital thumbnails, web banners, premiere countdown cards, and interactive weekend watch lists for regional OTT releases.",
+    carouselPlaceholders: [
+      { title: "Weekend Watchlist", img: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=500&h=500&fit=crop&auto=format" },
+      { title: "Streaming Now Hero", img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&h=500&fit=crop&auto=format" },
+      { title: "Top 10 Spotlight", img: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&h=500&fit=crop&auto=format" },
+    ]
+  },
+  {
+    id: 4,
+    brand: "AMC Engineering College",
+    abbr: "AMC",
+    category: "Institutional Brand & Events",
+    color: "#34D399",
+    description: "Formulated engaging campus fest campaigns, admission spotlight infographics, cultural fest posters, and student leadership announcements.",
+    carouselPlaceholders: [
+      { title: "Cultural Fest Key Art", img: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=500&fit=crop&auto=format" },
+      { title: "Campus Life Spotlight", img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=500&h=500&fit=crop&auto=format" },
+      { title: "Symposium Promo", img: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&h=500&fit=crop&auto=format" },
+    ]
+  },
+];
+
+const SKILL_GROUPS = [
+  {
+    category: "Adobe Creative Suite",
+    color: "#31A8FF",
+    skills: ["Photoshop", "Illustrator", "InDesign", "After Effects", "Premiere Pro", "Lightroom", "Adobe XD"],
+  },
+  {
+    category: "UI/UX",
+    color: "#F24E1E",
+    skills: ["Figma"],
+  },
+  {
+    category: "Creative",
+    color: "#FF5B3D",
+    skills: [
+      "Brand Identity",
+      "Typography",
+      "Poster Design",
+      "Motion Graphics",
+      "Visual Storytelling",
+      "Film Publicity",
+      "Social Media Design",
+    ],
+  },
+];
+
+const EXPERIENCE_TIMELINE = [
   {
     company: "Ticket Factory",
     role: "Graphic Designer & Video Editor",
-    period: "Oct 2023 – Sep 2025",
+    period: "October 2023 – September 2025",
+    descriptionPlaceholder: "Spearheaded visual publicity and digital marketing campaigns across theatrical film releases. Designed high-impact movie posters, motion graphics teasers, promotional social assets, and print collaterals while collaborating closely with film producers and marketing directors.",
     highlights: ["Film publicity", "Social campaigns", "Print design", "Marketing creatives", "Motion graphics"],
   },
   {
     company: "Inovact Social",
     role: "Graphic Design Intern",
-    period: "Sep 2023 – Mar 2024",
+    period: "September 2023 – March 2024",
+    descriptionPlaceholder: "Developed core brand identities, digital promotional creatives, and social media campaign graphics. Collaborated with creative strategists to enhance audience engagement across multiple digital platforms.",
     highlights: ["Branding", "Digital campaigns", "Promotional creatives"],
   },
 ];
-
-const TESTIMONIALS = [
-  {
-    name: "Ravi Kumar",
-    role: "Producer, Loukya Entertainments",
-    text: "Sushanth brings an extraordinary eye for cinematic storytelling to every project. The Game Changer campaign exceeded all our expectations in scale and impact.",
-    initials: "RK",
-    color: "#FF5B3D",
-  },
-  {
-    name: "Priya Sharma",
-    role: "Creative Director, Pink Elephant Pictures",
-    text: "Working with Sushanth is seamless. He understands the emotional core of a film and translates it into visuals that communicate before a single word is read.",
-    initials: "PS",
-    color: "#F2D16B",
-  },
-  {
-    name: "Anand Reddy",
-    role: "Marketing Head, AHA TV",
-    text: "His social campaigns drove engagement beyond our KPIs every time. A designer who thinks strategically while consistently delivering beautifully.",
-    initials: "AR",
-    color: "#A78BFA",
-  },
-];
-
-const DISPLAY_FONT = "'Big Shoulders Display', sans-serif";
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // HOOKS
@@ -195,66 +321,39 @@ function useScrollY() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// SHARED COMPONENTS
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function GrainOverlay() {
-  return (
-    <div
-      className="fixed inset-0 pointer-events-none z-[999]"
-      style={{
-        opacity: 0.04,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        backgroundRepeat: "repeat",
-        backgroundSize: "200px",
-      }}
-    />
-  );
-}
-
-function SectionLabel({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-3 mb-14 lg:mb-20">
-      <span className="text-[#FF5B3D] text-xs font-bold tracking-[0.2em] uppercase">{label}</span>
-      <div className="h-px w-10 bg-[#FF5B3D]/50" />
-    </div>
-  );
-}
-
-function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    let raf: number;
-    const start = performance.now();
-    const duration = 1800;
-
-    function tick(now: number) {
-      const progress = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 4);
-      setCount(Math.floor(ease * value));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-      else setCount(value);
-    }
-
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [isInView, value]);
-
-  return <span ref={ref} className="tabular-nums">{count}{suffix}</span>;
-}
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// NAV
+// NAVIGATION BAR
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function Nav() {
   const scrollY = useScrollY();
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState("home");
   const scrolled = scrollY > 50;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
+        const el = document.getElementById(NAV_ITEMS[i].id);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveId(NAV_ITEMS[i].id);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    setOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <motion.nav
@@ -270,27 +369,45 @@ function Nav() {
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-16 lg:h-20">
-        <a href="#" className="flex items-center">
+        <a
+          href="#home"
+          onClick={(e) => scrollToSection(e, "home")}
+          className="flex items-center"
+        >
           <span className="text-xl font-black text-white tracking-tight" style={{ fontFamily: DISPLAY_FONT }}>
             SS<span className="text-[#FF5B3D]">.</span>
           </span>
         </a>
 
-        <div className="hidden lg:flex items-center gap-10">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="text-sm text-white/50 hover:text-white transition-colors duration-300 tracking-wide"
-            >
-              {link}
-            </a>
-          ))}
+        <div className="hidden lg:flex items-center gap-8">
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeId === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => scrollToSection(e, item.id)}
+                className={`relative text-sm transition-colors duration-300 tracking-wide py-2 ${
+                  isActive ? "text-white font-bold" : "text-white/50 hover:text-white font-medium"
+                }`}
+              >
+                {item.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavIndicator"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF5B3D] rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </a>
+            );
+          })}
         </div>
 
         <div className="hidden lg:block">
           <motion.a
             href="#contact"
+            onClick={(e) => scrollToSection(e, "contact")}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF5B3D] text-white text-sm font-bold rounded-full"
             whileHover={{ scale: 1.04, backgroundColor: "#ff7b63" }}
             whileTap={{ scale: 0.97 }}
@@ -318,19 +435,20 @@ function Nav() {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="px-6 py-10 flex flex-col gap-7">
-              {NAV_LINKS.map((link, i) => (
+            <div className="px-6 py-8 flex flex-col gap-6">
+              {NAV_ITEMS.map((item, i) => (
                 <motion.a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  className="text-4xl font-black text-white"
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className="text-3xl font-black text-white flex items-center justify-between"
                   style={{ fontFamily: DISPLAY_FONT }}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => scrollToSection(e, item.id)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06 }}
+                  transition={{ delay: i * 0.05 }}
                 >
-                  {link}
+                  <span className={activeId === item.id ? "text-[#FF5B3D]" : "text-white"}>{item.label}</span>
+                  {activeId === item.id && <span className="w-2.5 h-2.5 rounded-full bg-[#FF5B3D]" />}
                 </motion.a>
               ))}
             </div>
@@ -342,31 +460,8 @@ function Nav() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// HERO
+// 1. HERO SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-const COLLAGE = [
-  {
-    img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=280&h=380&fit=crop&auto=format",
-    style: { top: "12%", left: "58%", rotate: -5 },
-    delay: 0,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1524781289445-ddf8ad4f31fe?w=240&h=340&fit=crop&auto=format",
-    style: { top: "5%", left: "74%", rotate: 4 },
-    delay: 0.15,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=220&h=300&fit=crop&auto=format",
-    style: { top: "50%", left: "62%", rotate: 3 },
-    delay: 0.3,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=200&h=280&fit=crop&auto=format",
-    style: { top: "45%", left: "79%", rotate: -3 },
-    delay: 0.45,
-  },
-];
 
 function Hero() {
   const { x, y } = useMousePosition();
@@ -388,11 +483,14 @@ function Hero() {
   const rx = vp.w ? x / vp.w : 0.5;
   const ry = vp.h ? y / vp.h : 0.5;
   const mx = (rx - 0.5) * 30;
-  const my = (ry - 0.5) * 20;
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-end pb-24 lg:pb-36 overflow-hidden bg-[#090909]">
-      {/* Mouse spotlight */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -401,7 +499,6 @@ function Hero() {
         }}
       />
 
-      {/* Subtle grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -411,9 +508,8 @@ function Hero() {
         }}
       />
 
-      {/* Floating collage — desktop only */}
       <div className="absolute inset-0 pointer-events-none hidden xl:block">
-        {COLLAGE.map((card, i) => (
+        {HERO_COLLAGE.map((card, i) => (
           <motion.div
             key={i}
             className="absolute rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#171717]"
@@ -435,7 +531,6 @@ function Hero() {
               y: { duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 },
               x: { duration: 0.8, ease: "easeOut" },
             }}
-            whileHover={{ scale: 1.06, rotate: 0, zIndex: 10 }}
           >
             <img
               src={card.img}
@@ -448,9 +543,7 @@ function Hero() {
         ))}
       </div>
 
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
-        {/* Available badge */}
         <motion.div
           className="inline-flex items-center gap-2.5 mb-10 lg:mb-14"
           initial={{ opacity: 0, y: 16 }}
@@ -463,7 +556,6 @@ function Hero() {
           </span>
         </motion.div>
 
-        {/* Name — two lines, second outlined */}
         <div className="overflow-hidden mb-2">
           <motion.h1
             className="font-black leading-[0.82] tracking-tighter text-white"
@@ -495,14 +587,12 @@ function Hero() {
           </motion.h1>
         </div>
 
-        {/* Bottom row */}
         <motion.div
           className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.9 }}
         >
-          {/* Rotating specialty */}
           <div className="flex items-center gap-5">
             <div className="w-px h-14 bg-white/15" />
             <div className="h-7 overflow-hidden flex flex-col">
@@ -524,10 +614,10 @@ function Hero() {
             </div>
           </div>
 
-          {/* CTAs */}
           <div className="flex items-center gap-3 flex-wrap">
             <motion.a
-              href="#work"
+              href="#publicity"
+              onClick={(e) => scrollToSection(e, "publicity")}
               className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5B3D] text-white font-bold text-sm rounded-full"
               whileHover={{ scale: 1.04, gap: "10px" }}
               whileTap={{ scale: 0.96 }}
@@ -536,6 +626,7 @@ function Hero() {
             </motion.a>
             <motion.a
               href="#contact"
+              onClick={(e) => scrollToSection(e, "contact")}
               className="inline-flex items-center px-6 py-3 border border-white/15 text-white font-bold text-sm rounded-full backdrop-blur-sm"
               whileHover={{ borderColor: "rgba(255,255,255,0.4)", scale: 1.02 }}
               whileTap={{ scale: 0.96 }}
@@ -545,27 +636,12 @@ function Hero() {
           </div>
         </motion.div>
       </div>
-
-      {/* Scroll cue */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
-      >
-        <motion.div
-          className="w-px h-12 bg-gradient-to-b from-[#FF5B3D]/60 to-transparent"
-          animate={{ scaleY: [0, 1, 0] }}
-          style={{ originY: 0 }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
     </section>
   );
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ABOUT
+// 2. ABOUT SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function About() {
@@ -578,7 +654,6 @@ function About() {
         <SectionLabel label="01 — About" />
 
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-start">
-          {/* Portrait */}
           <motion.div
             className="relative"
             initial={{ opacity: 0, x: -40 }}
@@ -593,7 +668,6 @@ function About() {
                 style={{ filter: "grayscale(0.85) contrast(1.1)" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#090909]/70 via-[#090909]/10 to-transparent" />
-              {/* Corner accents */}
               <div className="absolute top-5 left-5 w-10 h-10 border-t-[3px] border-l-[3px] border-[#FF5B3D]" />
               <div className="absolute bottom-5 right-5 w-10 h-10 border-b-[3px] border-r-[3px] border-[#FF5B3D]" />
             </div>
@@ -614,7 +688,6 @@ function About() {
             </motion.div>
           </motion.div>
 
-          {/* Text + stats */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -639,17 +712,6 @@ function About() {
               Worked with production houses, entertainment brands, startups, and educational institutions — creating movie posters, film campaigns, brand identities, and motion graphics that tell stories before a word is read.
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-12">
-              {["Movie Posters", "Film Campaigns", "Brand Identity", "Print Media", "Motion Graphics"].map((tag) => (
-                <span
-                  key={tag}
-                  className="px-4 py-1.5 border border-white/[0.08] rounded-full text-sm text-white/60 hover:border-[#FF5B3D]/30 hover:text-white/90 transition-all duration-300 cursor-default"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
             <div className="grid grid-cols-2 gap-x-8 gap-y-8">
               {STATS.map((stat) => (
                 <div key={stat.label} className="border-l-2 border-[#FF5B3D]/25 pl-5">
@@ -671,62 +733,18 @@ function About() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// SKILLS
+// 3. PUBLICITY CAMPAIGNS SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-function Skills() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-
-  return (
-    <section id="skills" ref={ref} className="py-28 lg:py-44" style={{ background: "#0d0d0d" }}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="02 — Skills" />
-
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 mb-14 lg:mb-20">
-          <h2
-            className="font-black leading-[0.88] tracking-tight text-white"
-            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
-          >
-            TOOLS &<br />
-            <span className="text-[#F2D16B]">CRAFT</span>
-          </h2>
-          <p className="text-[#9E9E9E] text-lg leading-relaxed self-end">
-            A toolkit built for the entertainment industry — from cinematic poster design to motion campaigns, across print, digital, and screen.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-          {SKILLS.map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              className="group relative bg-[#171717] border border-white/[0.06] rounded-xl px-4 py-5 overflow-hidden cursor-default"
-              initial={{ opacity: 0, y: 18, scale: 0.96 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ delay: i * 0.04, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -5, scale: 1.03, borderColor: "rgba(255,91,61,0.28)" }}
-            >
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-                style={{ background: "radial-gradient(circle at 50% 0%, rgba(255,91,61,0.07) 0%, transparent 70%)" }}
-              />
-              <div className="relative">
-                <div className="text-sm font-semibold text-white mb-1">{skill.name}</div>
-                <div className="text-xs text-[#9E9E9E]">{skill.level}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// FEATURED WORK
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function ProjectCard({ project, index }: { project: typeof PROJECTS[0]; index: number }) {
+function PublicityCampaignCard({
+  campaign,
+  index,
+  onSelect
+}: {
+  campaign: CampaignItem;
+  index: number;
+  onSelect: (campaign: CampaignItem) => void;
+}) {
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-40px" });
@@ -734,73 +752,65 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[0]; index: n
   return (
     <motion.div
       ref={ref}
-      className="relative rounded-2xl overflow-hidden cursor-pointer bg-[#171717] group"
+      className="relative rounded-2xl overflow-hidden cursor-pointer bg-[#171717] group mb-6"
       style={{ breakInside: "avoid" }}
       initial={{ opacity: 0, y: 28 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.05, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
+      onClick={() => onSelect(campaign)}
       whileHover={{ y: -6 }}
     >
-      <div
-        className="relative overflow-hidden"
-        style={{ aspectRatio: project.tall ? "3/4" : "4/3" }}
-      >
+      <div className="relative overflow-hidden" style={{ aspectRatio: campaign.tall ? "3/4" : "4/3" }}>
         <motion.img
-          src={project.img}
-          alt={project.title}
+          src={campaign.img}
+          alt={campaign.title}
           className="w-full h-full object-cover"
           animate={{ scale: hovered ? 1.09 : 1 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
 
-        {/* Color overlay on hover */}
         <motion.div
           className="absolute inset-0"
-          style={{ background: `linear-gradient(135deg, ${project.color}18 0%, transparent 55%)` }}
+          style={{ background: `linear-gradient(135deg, ${campaign.color}22 0%, transparent 60%)` }}
           animate={{ opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.4 }}
         />
 
-        {/* Info */}
         <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
           <div className="flex items-center gap-2 mb-2.5">
             <span
-              className="text-xs px-2.5 py-1 rounded-full font-semibold border"
+              className="text-xs px-3 py-1 rounded-full font-semibold border"
               style={{
-                color: project.color,
-                borderColor: `${project.color}35`,
-                background: `${project.color}12`,
+                color: campaign.color,
+                borderColor: `${campaign.color}40`,
+                background: `${campaign.color}15`,
               }}
             >
-              {project.category}
+              {campaign.category}
             </span>
-            <span className="text-xs text-white/35">{project.year}</span>
+            <span className="text-xs text-white/40">{campaign.year}</span>
           </div>
           <h3
             className="font-black text-white leading-tight"
-            style={{
-              fontFamily: DISPLAY_FONT,
-              fontSize: "clamp(1.4rem, 2.5vw, 2rem)",
-            }}
+            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)" }}
           >
-            {project.title}
+            {campaign.title}
           </h3>
           <motion.p
-            className="text-sm text-white/55 mt-1"
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6 }}
+            className="text-sm text-white/60 mt-1"
+            animate={{ opacity: hovered ? 1 : 0.7, y: hovered ? 0 : 4 }}
             transition={{ duration: 0.3 }}
           >
-            {project.role}
+            {campaign.role} • Click to expand preview
           </motion.p>
         </div>
 
-        {/* Arrow badge */}
         <motion.div
           className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}
+          style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.2)" }}
           animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.6 }}
           transition={{ duration: 0.3 }}
         >
@@ -811,31 +821,255 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[0]; index: n
   );
 }
 
-function FeaturedWork() {
+function PublicityCampaigns() {
+  const [selected, setSelected] = useState<CampaignItem | null>(null);
+
   return (
-    <section id="work" className="py-28 lg:py-44 bg-[#090909]">
+    <section id="publicity" className="py-28 lg:py-44 bg-[#090909]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="03 — Featured Work" />
+        <SectionLabel label="02 — Publicity Campaigns" />
 
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-14 lg:mb-20">
-          <h2
-            className="font-black leading-[0.88] tracking-tight text-white"
-            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
-          >
-            SELECTED<br />
-            <span className="text-[#FF5B3D]">PROJECTS</span>
-          </h2>
-          <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-sm lg:self-end">
-            11 feature films. 4 entertainment brands. Every frame designed to capture attention and tell a story at first glance.
+          <div>
+            <h2
+              className="font-black leading-[0.88] tracking-tight text-white"
+              style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
+            >
+              FILM PUBLICITY<br />
+              <span className="text-[#FF5B3D]">ARCHIVE</span>
+            </h2>
+          </div>
+          <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-md lg:self-end">
+            A dedicated showcase of theatrical campaign posters and visual publicity designed for blockbuster feature films. Click any card to preview full details.
           </p>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
-          {PROJECTS.map((project, i) => (
-            <div key={project.id} className="mb-4">
-              <ProjectCard project={project} index={i} />
-            </div>
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
+          {PUBLICITY_CAMPAIGNS.map((campaign, i) => (
+            <PublicityCampaignCard
+              key={campaign.id}
+              campaign={campaign}
+              index={i}
+              onSelect={setSelected}
+            />
           ))}
+        </div>
+      </div>
+
+      {/* Expandable Modal Preview */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div
+              className="absolute inset-0 bg-black/85 backdrop-blur-md"
+              onClick={() => setSelected(null)}
+            />
+            <motion.div
+              className="relative z-10 max-w-4xl w-full bg-[#141414] border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+              initial={{ scale: 0.92, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.92, y: 20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <button
+                onClick={() => setSelected(null)}
+                className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+              >
+                <XCircle className="w-6 h-6" />
+              </button>
+
+              <div className="w-full md:w-1/2 bg-black flex items-center justify-center overflow-hidden min-h-[320px] md:min-h-[500px]">
+                <img
+                  src={selected.img}
+                  alt={selected.title}
+                  className="w-full h-full object-contain max-h-[80vh]"
+                />
+              </div>
+
+              <div className="w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-between overflow-y-auto">
+                <div>
+                  <div className="flex items-center gap-2.5 mb-4">
+                    <span
+                      className="text-xs px-3 py-1 rounded-full font-semibold border"
+                      style={{
+                        color: selected.color,
+                        borderColor: `${selected.color}40`,
+                        background: `${selected.color}15`,
+                      }}
+                    >
+                      {selected.category}
+                    </span>
+                    <span className="text-xs text-white/40">{selected.year}</span>
+                  </div>
+
+                  <h3
+                    className="text-4xl lg:text-5xl font-black text-white mb-2"
+                    style={{ fontFamily: DISPLAY_FONT }}
+                  >
+                    {selected.title}
+                  </h3>
+                  <p className="text-sm font-semibold text-[#FF5B3D] mb-6">{selected.role}</p>
+
+                  <div className="border-t border-white/[0.08] pt-6 mb-6">
+                    <h4 className="text-xs font-bold uppercase tracking-widest text-[#9E9E9E] mb-2.5">
+                      Campaign Overview
+                    </h4>
+                    <p className="text-white/75 text-sm sm:text-base leading-relaxed">
+                      {selected.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 flex items-center justify-between border-t border-white/[0.08] text-xs text-white/40">
+                  <span>Theatrical Film Archive</span>
+                  <span>Sushanth Sapare Design</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 4. SOCIAL MEDIA CAMPAIGNS SECTION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function SocialMediaCampaigns() {
+  const [activeCarouselIndex, setActiveCarouselIndex] = useState<{ [key: number]: number }>({
+    1: 0, 2: 0, 3: 0, 4: 0
+  });
+
+  const nextSlide = (id: number, len: number) => {
+    setActiveCarouselIndex(prev => ({ ...prev, [id]: (prev[id] + 1) % len }));
+  };
+
+  const prevSlide = (id: number, len: number) => {
+    setActiveCarouselIndex(prev => ({ ...prev, [id]: (prev[id] - 1 + len) % len }));
+  };
+
+  return (
+    <section id="campaigns" className="py-28 lg:py-44" style={{ background: "#0d0d0d" }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <SectionLabel label="03 — Social Media Campaigns" />
+
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-14 lg:mb-20">
+          <div>
+            <h2
+              className="font-black leading-[0.88] tracking-tight text-white"
+              style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
+            >
+              DIGITAL & SOCIAL<br />
+              <span className="text-[#F2D16B]">STRATEGIES</span>
+            </h2>
+          </div>
+          <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-md lg:self-end">
+            Distinct from theatrical posters, these comprehensive social media campaigns drive brand engagement across production houses, OTT platforms, and institutional organizations.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {SOCIAL_MEDIA_CAMPAIGNS.map((brandItem, i) => {
+            const currentSlide = activeCarouselIndex[brandItem.id] || 0;
+            const activeHolder = brandItem.carouselPlaceholders[currentSlide];
+
+            return (
+              <motion.div
+                key={brandItem.id}
+                className="bg-[#171717] border border-white/[0.08] rounded-3xl p-6 lg:p-8 flex flex-col justify-between group overflow-hidden"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ borderColor: `${brandItem.color}35` }}
+              >
+                <div>
+                  {/* Brand Header */}
+                  <div className="flex items-center justify-between gap-4 mb-6">
+                    <div className="flex items-center gap-3.5">
+                      <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-black"
+                        style={{ background: `${brandItem.color}18`, color: brandItem.color, fontFamily: DISPLAY_FONT }}
+                      >
+                        {brandItem.abbr}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white leading-snug">{brandItem.brand}</h3>
+                        <span className="text-xs text-[#9E9E9E]">{brandItem.category}</span>
+                      </div>
+                    </div>
+                    <span
+                      className="text-xs px-3 py-1 rounded-full font-semibold"
+                      style={{ background: `${brandItem.color}15`, color: brandItem.color }}
+                    >
+                      Social Campaign
+                    </span>
+                  </div>
+
+                  <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-8">
+                    {brandItem.description}
+                  </p>
+                </div>
+
+                {/* Interactive Carousel Placeholder */}
+                <div className="bg-[#101010] border border-white/[0.05] rounded-2xl p-4 overflow-hidden">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-semibold text-white/50 tracking-wider uppercase flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#F2D16B]" /> Campaign Carousel Showcase
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => prevSlide(brandItem.id, brandItem.carouselPlaceholders.length)}
+                        className="p-1 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 transition-colors"
+                        aria-label="Previous slide"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <span className="text-xs text-white/50 px-2 font-mono">
+                        {currentSlide + 1} / {brandItem.carouselPlaceholders.length}
+                      </span>
+                      <button
+                        onClick={() => nextSlide(brandItem.id, brandItem.carouselPlaceholders.length)}
+                        className="p-1 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 transition-colors"
+                        aria-label="Next slide"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-black group/carousel">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={currentSlide}
+                        src={activeHolder.img}
+                        alt={activeHolder.title}
+                        className="w-full h-full object-cover"
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35 }}
+                      />
+                    </AnimatePresence>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
+                      <span className="text-sm font-semibold text-white">{activeHolder.title}</span>
+                      <span className="text-[10px] uppercase tracking-widest text-white/50 bg-black/60 px-2 py-0.5 rounded">
+                        Carousel Slide #{currentSlide + 1}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -843,48 +1077,64 @@ function FeaturedWork() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// BRANDS
+// 5. SKILLS SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-function Brands() {
+function Skills() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section ref={ref} className="py-28 lg:py-40 border-y border-white/[0.05]" style={{ background: "#0d0d0d" }}>
+    <section id="skills" ref={ref} className="py-28 lg:py-44 bg-[#090909]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="04 — Clients" />
+        <SectionLabel label="04 — Skills" />
 
-        <h2
-          className="font-black leading-[0.88] tracking-tight text-white mb-14 lg:mb-20"
-          style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
-        >
-          ENTERTAINMENT<br />
-          <span className="text-[#F2D16B]">BRANDS</span>
-        </h2>
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 mb-14 lg:mb-20">
+          <h2
+            className="font-black leading-[0.88] tracking-tight text-white"
+            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
+          >
+            EXPERTISE &<br />
+            <span className="text-[#31A8FF]">CRAFT</span>
+          </h2>
+          <p className="text-[#9E9E9E] text-lg leading-relaxed self-end">
+            Specialized tools and creative methodologies honed across industry-leading Adobe design software, interactive UI/UX environments, and visual storytelling disciplines.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {BRANDS.map((brand, i) => (
+        <div className="space-y-12">
+          {SKILL_GROUPS.map((group, gIdx) => (
             <motion.div
-              key={brand.name}
-              className="group relative bg-[#171717] border border-white/[0.06] rounded-2xl p-8 lg:p-10 flex flex-col items-center justify-center gap-4 cursor-pointer overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
+              key={group.category}
+              initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -5, borderColor: "rgba(242,209,107,0.22)" }}
+              transition={{ delay: gIdx * 0.15, duration: 0.7 }}
+              className="bg-[#141414] border border-white/[0.06] rounded-3xl p-8 lg:p-10"
             >
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(circle at 50% 50%, rgba(242,209,107,0.06) 0%, transparent 70%)" }}
-              />
-              <div
-                className="text-5xl font-black text-white/15 group-hover:text-[#F2D16B]/50 transition-colors duration-500"
-                style={{ fontFamily: DISPLAY_FONT }}
-              >
-                {brand.abbr}
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: group.color }} />
+                <h3 className="text-xl font-bold text-white tracking-wide uppercase font-mono text-sm">
+                  {group.category}
+                </h3>
               </div>
-              <div className="text-center text-sm font-medium text-[#9E9E9E] group-hover:text-white/80 transition-colors duration-300">
-                {brand.name}
+
+              <div className="flex flex-wrap gap-3 sm:gap-4">
+                {group.skills.map((skill) => (
+                  <motion.div
+                    key={skill}
+                    className="px-5 py-3 rounded-2xl bg-[#1d1d1d] border border-white/[0.08] text-sm sm:text-base font-semibold text-white/90 cursor-default flex items-center gap-2.5 transition-all duration-300 shadow-sm"
+                    whileHover={{
+                      y: -4,
+                      scale: 1.04,
+                      borderColor: group.color,
+                      backgroundColor: "#242424",
+                      boxShadow: `0 8px 20px -6px ${group.color}35`,
+                    }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: group.color }} />
+                    {skill}
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           ))}
@@ -895,15 +1145,15 @@ function Brands() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// TIMELINE
+// 6. EXPERIENCE SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-function Timeline() {
+function Experience() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="experience" ref={ref} className="py-28 lg:py-44 bg-[#090909]">
+    <section id="experience" ref={ref} className="py-28 lg:py-44" style={{ background: "#0d0d0d" }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <SectionLabel label="05 — Experience" />
 
@@ -913,11 +1163,11 @@ function Timeline() {
             style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
           >
             CAREER<br />
-            <span className="text-[#FF5B3D]">JOURNEY</span>
+            <span className="text-[#FF5B3D]">TIMELINE</span>
           </h2>
 
           <div className="space-y-0">
-            {TIMELINE.map((item, i) => (
+            {EXPERIENCE_TIMELINE.map((item, i) => (
               <motion.div
                 key={item.company}
                 className="flex gap-6 lg:gap-8"
@@ -925,19 +1175,18 @@ function Timeline() {
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.2 + i * 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* Left column: dot + line */}
                 <div className="flex flex-col items-center flex-shrink-0">
                   <motion.div
-                    className="w-3 h-3 rounded-full bg-[#FF5B3D] mt-1.5 flex-shrink-0"
-                    style={{ boxShadow: "0 0 10px rgba(255,91,61,0.5)" }}
+                    className="w-3.5 h-3.5 rounded-full bg-[#FF5B3D] mt-1.5 flex-shrink-0"
+                    style={{ boxShadow: "0 0 12px rgba(255,91,61,0.6)" }}
                     initial={{ scale: 0 }}
                     animate={isInView ? { scale: 1 } : {}}
                     transition={{ delay: 0.3 + i * 0.2, duration: 0.4 }}
                   />
-                  {i < TIMELINE.length - 1 && (
+                  {i < EXPERIENCE_TIMELINE.length - 1 && (
                     <motion.div
-                      className="w-px bg-[#FF5B3D]/20 my-2 flex-1"
-                      style={{ originY: 0, minHeight: "60px" }}
+                      className="w-px bg-[#FF5B3D]/25 my-2 flex-1"
+                      style={{ originY: 0, minHeight: "80px" }}
                       initial={{ scaleY: 0 }}
                       animate={isInView ? { scaleY: 1 } : {}}
                       transition={{ delay: 0.5 + i * 0.2, duration: 0.8 }}
@@ -945,23 +1194,25 @@ function Timeline() {
                   )}
                 </div>
 
-                {/* Content */}
-                <div className="pb-14">
-                  <div className="text-xs text-[#FF5B3D] font-bold tracking-[0.15em] uppercase mb-2">
+                <div className="pb-16">
+                  <div className="text-xs text-[#FF5B3D] font-bold tracking-[0.18em] uppercase mb-2">
                     {item.period}
                   </div>
                   <h3
                     className="font-black text-white mb-1"
-                    style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.6rem, 3vw, 2.5rem)" }}
+                    style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}
                   >
                     {item.company}
                   </h3>
-                  <p className="text-[#9E9E9E] text-sm mb-5">{item.role}</p>
+                  <p className="text-[#9E9E9E] font-medium text-base mb-4">{item.role}</p>
+                  <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-6">
+                    {item.descriptionPlaceholder}
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {item.highlights.map((h) => (
                       <span
                         key={h}
-                        className="text-sm px-3 py-1.5 bg-[#171717] border border-white/[0.06] rounded-full text-white/55"
+                        className="text-xs font-semibold px-3.5 py-1.5 bg-[#171717] border border-white/[0.08] rounded-full text-white/70"
                       >
                         {h}
                       </span>
@@ -978,202 +1229,7 @@ function Timeline() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// PHILOSOPHY
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function Philosophy() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <section ref={ref} className="relative py-36 lg:py-56 overflow-hidden" style={{ background: "#0d0d0d" }}>
-      {/* BG word */}
-      <div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-        aria-hidden
-      >
-        <motion.span
-          className="font-black text-white whitespace-nowrap"
-          style={{
-            fontFamily: DISPLAY_FONT,
-            fontSize: "clamp(8rem, 28vw, 26rem)",
-            color: "rgba(255,255,255,0.018)",
-          }}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 1.2 }}
-        >
-          DESIGN
-        </motion.span>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <motion.div
-          className="text-[#FF5B3D] leading-none font-black -ml-2 select-none"
-          style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(5rem, 10vw, 10rem)", lineHeight: 0.7 }}
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.7 }}
-        >
-          "
-        </motion.div>
-
-        <div className="overflow-hidden">
-          <motion.blockquote
-            className="font-black text-white tracking-tight leading-[1.05] max-w-5xl mt-4"
-            style={{
-              fontFamily: DISPLAY_FONT,
-              fontSize: "clamp(2rem, 4.5vw, 4.5rem)",
-            }}
-            initial={{ y: "60%", opacity: 0 }}
-            animate={isInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ delay: 0.15, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            I believe every design should tell a story before a single word is read.
-          </motion.blockquote>
-        </div>
-
-        <motion.div
-          className="flex items-center gap-3 mt-10"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.7, duration: 0.8 }}
-        >
-          <div className="w-8 h-px bg-[#FF5B3D]" />
-          <span className="text-[#9E9E9E] text-sm">Sushanth Sapare — Design Philosophy</span>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// TOOLS
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function Tools() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-
-  return (
-    <section ref={ref} className="py-28 lg:py-40 bg-[#090909]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="06 — Software" />
-
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-10 mb-14 lg:mb-20">
-          <h2
-            className="font-black leading-[0.88] tracking-tight text-white"
-            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
-          >
-            CREATIVE<br />
-            <span className="text-[#FF5B3D]">ARSENAL</span>
-          </h2>
-          <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-xs lg:self-end">
-            Industry-standard tools mastered for film, print, digital, and motion.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-4">
-          {TOOLS.map((tool, i) => (
-            <motion.div
-              key={tool.name}
-              className="group flex flex-col items-center gap-3 p-5 bg-[#171717] border border-white/[0.06] rounded-2xl cursor-default"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -8, scale: 1.06, borderColor: `${tool.color}35` }}
-            >
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-base font-black"
-                style={{
-                  background: `${tool.color}18`,
-                  color: tool.color,
-                  fontFamily: DISPLAY_FONT,
-                  transition: "transform 0.3s",
-                }}
-              >
-                {tool.short}
-              </div>
-              <span className="text-xs text-[#9E9E9E] text-center group-hover:text-white/80 transition-colors duration-300">
-                {tool.name}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// TESTIMONIALS
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function Testimonials() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-
-  return (
-    <section ref={ref} className="py-28 lg:py-44" style={{ background: "#0d0d0d" }}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="07 — Testimonials" />
-
-        <h2
-          className="font-black leading-[0.88] tracking-tight text-white mb-14 lg:mb-20"
-          style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
-        >
-          WHAT<br />
-          <span className="text-[#F2D16B]">CLIENTS SAY</span>
-        </h2>
-
-        <div className="grid lg:grid-cols-3 gap-5">
-          {TESTIMONIALS.map((t, i) => (
-            <motion.div
-              key={t.name}
-              className="relative rounded-2xl p-7 lg:p-8 overflow-hidden"
-              style={{
-                background: "rgba(23,23,23,0.8)",
-                backdropFilter: "blur(16px)",
-                border: "1px solid rgba(255,255,255,0.07)",
-              }}
-              initial={{ opacity: 0, y: 28 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -5, borderColor: `${t.color}22` }}
-            >
-              {/* Quote mark deco */}
-              <div
-                className="absolute top-3 right-5 font-black leading-none opacity-[0.08] select-none"
-                style={{ fontFamily: DISPLAY_FONT, fontSize: "7rem", color: t.color }}
-              >
-                "
-              </div>
-
-              <div className="relative">
-                <p className="text-white/75 text-base leading-relaxed mb-8">{t.text}</p>
-                <div className="flex items-center gap-4">
-                  <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                    style={{ background: `${t.color}22`, color: t.color, fontFamily: DISPLAY_FONT }}
-                  >
-                    {t.initials}
-                  </div>
-                  <div>
-                    <div className="text-white font-semibold text-sm">{t.name}</div>
-                    <div className="text-[#9E9E9E] text-xs mt-0.5">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CONTACT
+// 7. CONTACT SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function Contact() {
@@ -1196,7 +1252,6 @@ function Contact() {
 
   return (
     <section id="contact" ref={ref} className="relative py-28 lg:py-44 bg-[#090909] overflow-hidden">
-      {/* BG word */}
       <div
         className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none select-none"
         aria-hidden
@@ -1214,10 +1269,9 @@ function Contact() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="08 — Contact" />
+        <SectionLabel label="06 — Contact" />
 
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-24">
-          {/* Left */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -1229,46 +1283,46 @@ function Contact() {
             >
               LET'S CREATE<br />
               SOMETHING<br />
-              <span className="text-[#FF5B3D]">WORTH<br />REMEMBERING.</span>
+              <span className="text-[#FF5B3D]">MEMORABLE.</span>
             </h2>
             <p className="text-[#9E9E9E] text-lg leading-relaxed mb-10">
-              Open to film projects, brand campaigns, motion work, and creative collaborations. Let's bring your vision to life.
+              Open to theatrical film campaigns, brand identity overhauls, motion graphics work, and creative collaborations. Let's make every frame extraordinary.
             </p>
 
             <div className="space-y-4 mb-10">
               <a
                 href="mailto:sushanthsapare@gmail.com"
-                className="flex items-center gap-4 text-white/60 hover:text-white transition-colors duration-300 group"
+                className="flex items-center gap-4 text-white/70 hover:text-white transition-colors duration-300 group"
               >
-                <div className="w-10 h-10 bg-[#171717] border border-white/[0.08] rounded-full flex items-center justify-center group-hover:border-[#FF5B3D]/35 transition-colors">
-                  <Mail className="w-4 h-4" />
+                <div className="w-11 h-11 bg-[#171717] border border-white/[0.08] rounded-full flex items-center justify-center group-hover:border-[#FF5B3D]/50 transition-colors">
+                  <Mail className="w-4 h-4 text-[#FF5B3D]" />
                 </div>
-                <span className="text-sm">sushanthsapare@gmail.com</span>
+                <span className="text-base font-medium">sushanthsapare@gmail.com</span>
               </a>
             </div>
 
             <div className="flex items-center gap-3">
               {[
-                { Icon: Linkedin, label: "LinkedIn" },
-                { Icon: Instagram, label: "Instagram" },
-                { Icon: ExternalLink, label: "Behance" },
-                { Icon: Github, label: "GitHub" },
-              ].map(({ Icon, label }) => (
+                { Icon: Linkedin, label: "LinkedIn", url: "#" },
+                { Icon: Instagram, label: "Instagram", url: "#" },
+                { Icon: ExternalLink, label: "Behance", url: "#" },
+                { Icon: Github, label: "Portfolio", url: "#" },
+              ].map(({ Icon, label, url }) => (
                 <motion.a
                   key={label}
-                  href="#"
+                  href={url}
                   aria-label={label}
-                  className="w-10 h-10 bg-[#171717] border border-white/[0.08] rounded-full flex items-center justify-center text-white/45 hover:text-white hover:border-white/25 transition-all duration-300"
-                  whileHover={{ scale: 1.12, y: -3 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="px-4 py-2.5 bg-[#171717] border border-white/[0.08] rounded-full flex items-center gap-2 text-white/60 hover:text-white hover:border-white/25 transition-all duration-300 text-xs font-semibold"
+                  whileHover={{ scale: 1.06, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-3.5 h-3.5 text-[#FF5B3D]" />
+                  <span>{label}</span>
                 </motion.a>
               ))}
             </div>
           </motion.div>
 
-          {/* Form */}
           <motion.form
             onSubmit={handleSubmit}
             className="space-y-4"
@@ -1307,7 +1361,7 @@ function Contact() {
                 type="text"
                 value={form.project}
                 onChange={(e) => setForm({ ...form, project: e.target.value })}
-                placeholder="Film campaign, brand identity, motion design..."
+                placeholder="Film publicity, social campaign, branding..."
                 className={inputClass}
               />
             </div>
@@ -1364,35 +1418,51 @@ function Contact() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// FOOTER
+// 8. FOOTER SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="border-t border-white/[0.05] bg-[#090909] py-10">
+    <footer className="border-t border-white/[0.06] bg-[#090909] py-12">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <span
-          className="text-2xl font-black text-white"
-          style={{ fontFamily: DISPLAY_FONT }}
+        <a
+          href="#home"
+          onClick={(e) => { e.preventDefault(); scrollToTop(); }}
+          className="flex items-center"
         >
-          SS<span className="text-[#FF5B3D]">.</span>
-        </span>
+          <span className="text-2xl font-black text-white" style={{ fontFamily: DISPLAY_FONT }}>
+            SS<span className="text-[#FF5B3D]">.</span>
+          </span>
+        </a>
 
         <p className="text-[#9E9E9E] text-sm text-center">
           © 2024 Sushanth Sapare. Crafted with precision.
         </p>
 
-        <div className="flex items-center gap-4">
-          {[Linkedin, Instagram, Github, ExternalLink].map((Icon, i) => (
-            <motion.a
-              key={i}
-              href="#"
-              className="text-white/30 hover:text-white/80 transition-colors duration-300"
-              whileHover={{ y: -2 }}
-            >
-              <Icon className="w-4 h-4" />
-            </motion.a>
-          ))}
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            {[Linkedin, Instagram, ExternalLink, Github].map((Icon, i) => (
+              <motion.a
+                key={i}
+                href="#"
+                className="text-white/40 hover:text-white transition-colors duration-300"
+                whileHover={{ y: -2 }}
+              >
+                <Icon className="w-4 h-4" />
+              </motion.a>
+            ))}
+          </div>
+
+          <button
+            onClick={scrollToTop}
+            className="px-4 py-2 rounded-full bg-[#171717] border border-white/10 hover:border-[#FF5B3D]/50 text-xs text-white font-medium transition-all duration-300 flex items-center gap-1.5"
+          >
+            Back to Top ↑
+          </button>
         </div>
       </div>
     </footer>
@@ -1400,7 +1470,7 @@ function Footer() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// APP
+// MAIN APP COMPONENT
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 export default function App() {
@@ -1410,13 +1480,10 @@ export default function App() {
       <Nav />
       <Hero />
       <About />
+      <PublicityCampaigns />
+      <SocialMediaCampaigns />
       <Skills />
-      <FeaturedWork />
-      <Brands />
-      <Timeline />
-      <Philosophy />
-      <Tools />
-      <Testimonials />
+      <Experience />
       <Contact />
       <Footer />
     </div>
