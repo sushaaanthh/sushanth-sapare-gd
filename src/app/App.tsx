@@ -20,6 +20,7 @@ const NAV_ITEMS = [
   { label: "About", id: "about" },
   { label: "Publicity Design", id: "publicity" },
   { label: "SM Campaigns", id: "campaigns" },
+  { label: "Fan Arts", id: "fan-arts" },
   { label: "Skills", id: "skills" },
   { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
@@ -230,6 +231,22 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
   },
 ];
 
+export interface FanArtItem {
+  id: number;
+  title: string;
+  img: string;
+}
+
+const FAN_ARTS: FanArtItem[] = [
+  { id: 1, title: "Peddi", img: "/fan-arts/fanart1-peddi.jpg" },
+  { id: 2, title: "Obsession", img: "/fan-arts/fanart2-obsession.jpg" },
+  { id: 3, title: "Orange", img: "/fan-arts/fanart3-orange.jpg" },
+  { id: 4, title: "Peddi 200 Days", img: "/fan-arts/fanart4-peddi200dtg.jpg" },
+  { id: 5, title: "OG", img: "/fan-arts/fanart5-og.jpg" },
+  { id: 6, title: "Coolie", img: "/fan-arts/fanart6-coolie.jpg" },
+  { id: 7, title: "HHVM Wishes", img: "/fan-arts/fanart7-hhvmwishes.jpg" },
+];
+
 const SKILL_GROUPS = [
   {
     category: "Poster Design",
@@ -239,12 +256,6 @@ const SKILL_GROUPS = [
       "Illustrator",
       "InDesign",
       "Lightroom",
-      "Typography",
-      "Brand Identity",
-      "Poster Design",
-      "Film Publicity",
-      "Social Media Design",
-      "Visual Storytelling",
       "Canva",
     ],
   },
@@ -253,7 +264,6 @@ const SKILL_GROUPS = [
     color: "#F2D16B",
     skills: [
       "After Effects",
-      "Motion Graphics",
       "Adobe XD",
       "Figma",
     ],
@@ -275,9 +285,6 @@ const SKILL_GROUPS = [
       "CSS",
       "JavaScript",
       "React",
-      "Responsive Design",
-      "UI Design",
-      "UX Design",
     ],
   },
 ];
@@ -618,7 +625,7 @@ function About() {
   return (
     <section id="about" ref={ref} className="py-28 lg:py-44 bg-[#090909]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="01 — About" />
+        <SectionLabel label="01 — ABOUT" />
 
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-start">
           <motion.div
@@ -778,7 +785,7 @@ function PublicityCampaigns() {
   return (
     <section id="publicity" className="py-28 lg:py-44 bg-[#090909]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="02 — Publicity Design" />
+        <SectionLabel label="02 — PUBLICITY CAMPAIGNS" />
 
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-14 lg:mb-20">
           <div>
@@ -874,7 +881,7 @@ function SocialMediaCampaigns() {
   return (
     <section id="campaigns" className="py-28 lg:py-44" style={{ background: "#0d0d0d" }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="03 — SM Campaigns" />
+        <SectionLabel label="03 — SOCIAL MEDIA CAMPAIGNS" />
 
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-14 lg:mb-20">
           <div>
@@ -970,6 +977,157 @@ function SocialMediaCampaigns() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 4. FAN ARTS SECTION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const FanArtCard: React.FC<{
+  art: FanArtItem;
+  index: number;
+  onSelect: (art: FanArtItem) => void;
+}> = ({ art, index, onSelect }) => {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="relative rounded-2xl overflow-hidden cursor-pointer bg-[#171717] group shadow-xl"
+      initial={{ opacity: 0, y: 28 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.05, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      onClick={() => onSelect(art)}
+      whileHover={{ y: -6 }}
+    >
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/5" }}>
+        <motion.img
+          src={art.img}
+          alt={art.title}
+          className="w-full h-full object-cover"
+          animate={{ scale: hovered ? 1.07 : 1 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+
+        <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
+          <h3
+            className="font-black text-white leading-tight"
+            style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.75rem, 3vw, 2.4rem)" }}
+          >
+            {art.title}
+          </h3>
+        </div>
+
+        <motion.div
+          className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center"
+          style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.2)" }}
+          animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.6 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ArrowUpRight className="w-4 h-4 text-white" />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+function FanArts() {
+  const [selected, setSelected] = useState<FanArtItem | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    if (selected) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selected]);
+
+  return (
+    <section id="fan-arts" className="py-28 lg:py-44 bg-[#090909]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <SectionLabel label="04 — FAN ARTS" />
+
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-14 lg:mb-20">
+          <div>
+            <h2
+              className="font-black leading-[0.88] tracking-tight text-white"
+              style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
+            >
+              FAN<br />
+              <span className="text-[#FF5B3D]">ARTS</span>
+            </h2>
+          </div>
+          <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-md lg:self-end">
+            A curated collection of personal fan art projects, concept posters, and creative explorations inspired by cinema, pop culture, and digital illustration.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {FAN_ARTS.map((art, i) => (
+            <FanArtCard
+              key={art.id}
+              art={art}
+              index={i}
+              onSelect={setSelected}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Clean Fullscreen Modal Preview */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div
+              className="absolute inset-0 bg-black/90 backdrop-blur-md cursor-pointer"
+              onClick={() => setSelected(null)}
+            />
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-6 right-6 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
+              aria-label="Close modal"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <motion.div
+              className="relative z-10 flex flex-col items-center justify-center max-w-5xl max-h-[90vh] pointer-events-none"
+              initial={{ scale: 0.94, y: 16 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.94, y: 16 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="overflow-hidden rounded-2xl shadow-2xl max-h-[80vh] border border-white/10 pointer-events-auto">
+                <img
+                  src={selected.img}
+                  alt={selected.title}
+                  className="w-auto h-auto max-h-[80vh] object-contain block mx-auto"
+                />
+              </div>
+              <h3
+                className="font-black text-white mt-4 text-center tracking-wide pointer-events-auto"
+                style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}
+              >
+                {selected.title}
+              </h3>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // 5. SKILLS SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -980,7 +1138,7 @@ function Skills() {
   return (
     <section id="skills" ref={ref} className="py-28 lg:py-44 bg-[#090909]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="04 — Skills" />
+        <SectionLabel label="05 — SKILLS" />
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 mb-14 lg:mb-20">
           <h2
@@ -1048,7 +1206,7 @@ function Experience() {
   return (
     <section id="experience" ref={ref} className="py-28 lg:py-44" style={{ background: "#0d0d0d" }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="05 — Experience" />
+        <SectionLabel label="06 — EXPERIENCE" />
 
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-24">
           <h2
@@ -1162,7 +1320,7 @@ function Contact() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <SectionLabel label="06 — Contact" />
+        <SectionLabel label="07 — CONTACT" />
 
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-24">
           <motion.div
@@ -1377,6 +1535,7 @@ export default function App() {
       <About />
       <PublicityCampaigns />
       <SocialMediaCampaigns />
+      <FanArts />
       <Skills />
       <Experience />
       <Contact />
