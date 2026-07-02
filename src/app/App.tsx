@@ -611,6 +611,41 @@ function Hero() {
             </AnimatePresence>
           </div>
         </motion.div>
+
+        {/* Hero CTA Buttons */}
+        <motion.div
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-8 sm:pt-10"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.9 }}
+        >
+          <motion.a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="px-7 py-4 bg-[#FF5B3D] hover:bg-[#ff7b63] text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2.5 transition-all duration-300 shadow-lg shadow-[#FF5B3D]/20 focus:outline-none focus:ring-2 focus:ring-[#FF5B3D]/60 cursor-pointer"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span>Let's Work Together</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </motion.a>
+
+          <motion.a
+            href="https://drive.google.com/drive/folders/192L5jp9yh81iSZgca5p979pYVhYZzG9y?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Resume (opens in a new tab)"
+            className="group px-7 py-4 bg-[#171717] border border-white/15 hover:border-[#FF5B3D] text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2.5 transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF5B3D]/60 cursor-pointer"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span>View Resume</span>
+            <ExternalLink className="w-4 h-4 text-white/70 group-hover:text-[#FF5B3D] transition-colors" />
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
