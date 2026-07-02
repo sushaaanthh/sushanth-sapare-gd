@@ -232,26 +232,52 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
 
 const SKILL_GROUPS = [
   {
-    category: "Adobe Creative Suite",
-    color: "#31A8FF",
-    skills: ["Photoshop", "Illustrator", "InDesign", "After Effects", "Premiere Pro", "Lightroom", "Adobe XD"],
-  },
-  {
-    category: "UI/UX",
-    color: "#F24E1E",
-    skills: ["Figma"],
-  },
-  {
-    category: "Creative",
+    category: "Poster Design",
     color: "#FF5B3D",
     skills: [
-      "Brand Identity",
+      "Photoshop",
+      "Illustrator",
+      "InDesign",
+      "Lightroom",
       "Typography",
+      "Brand Identity",
       "Poster Design",
-      "Motion Graphics",
-      "Visual Storytelling",
       "Film Publicity",
       "Social Media Design",
+      "Visual Storytelling",
+      "Canva",
+    ],
+  },
+  {
+    category: "Motion Design",
+    color: "#F2D16B",
+    skills: [
+      "After Effects",
+      "Motion Graphics",
+      "Adobe XD",
+      "Figma",
+    ],
+  },
+  {
+    category: "Video Editing",
+    color: "#31A8FF",
+    skills: [
+      "Premiere Pro",
+      "CapCut",
+    ],
+  },
+  {
+    category: "Web Design",
+    color: "#34D399",
+    skills: [
+      "Figma",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Responsive Design",
+      "UI Design",
+      "UX Design",
     ],
   },
 ];
@@ -988,7 +1014,7 @@ function Skills() {
               <div className="flex flex-wrap gap-3 sm:gap-4">
                 {group.skills.map((skill) => (
                   <motion.div
-                    key={skill}
+                    key={`${group.category}-${skill}`}
                     className="px-5 py-3 rounded-2xl bg-[#1d1d1d] border border-white/[0.08] text-sm sm:text-base font-semibold text-white/90 cursor-default flex items-center gap-2.5 transition-all duration-300 shadow-sm"
                     whileHover={{
                       y: -4,
