@@ -27,10 +27,12 @@ const NAV_ITEMS = [
 ];
 
 const SPECIALTIES = [
-  "Film Publicity Designer",
-  "Brand Identity",
-  "Motion Graphics",
   "Graphic Designer",
+  "Video Editor",
+  "Motion Graphics Designer",
+  "Film Publicity Designer",
+  "Logo Designer",
+  "Brand Identity Specialist"
 ];
 
 const HERO_COLLAGE = [
@@ -1178,9 +1180,8 @@ function Skills() {
                   rotate: gIdx % 2 === 0 ? 1 : -1,
                   boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.8)",
                 }}
-                className={`bg-[#141414] border border-white/[0.08] hover:border-[#FF5B3D]/40 rounded-3xl p-7 sm:p-8 transition-all duration-300 relative overflow-hidden group ${
-                  gIdx % 2 === 1 ? "sm:mt-12" : ""
-                }`}
+                className={`bg-[#141414] border border-white/[0.08] hover:border-[#FF5B3D]/40 rounded-3xl p-7 sm:p-8 transition-all duration-300 relative overflow-hidden group ${gIdx % 2 === 1 ? "sm:mt-12" : ""
+                  }`}
               >
                 {/* Large category title */}
                 <h3
