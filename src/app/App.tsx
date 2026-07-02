@@ -1158,7 +1158,7 @@ function Skills() {
               style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(2.8rem, 6vw, 5.5rem)" }}
             >
               EXPERTISE &<br />
-              <span className="text-[#31A8FF]">CRAFT</span>
+              <span className="text-[#FF5B3D]">CRAFT</span>
             </h2>
             <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-md">
               Specialized tools and creative methodologies honed across industry-leading Adobe design software, interactive UI/UX environments, and visual storytelling disciplines.
