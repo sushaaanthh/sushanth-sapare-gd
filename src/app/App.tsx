@@ -736,15 +736,11 @@ function About() {
 // 3. PUBLICITY CAMPAIGNS SECTION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-function PublicityCampaignCard({
-  campaign,
-  index,
-  onSelect
-}: {
+const PublicityCampaignCard: React.FC<{
   campaign: CampaignItem;
   index: number;
   onSelect: (campaign: CampaignItem) => void;
-}) {
+}> = ({ campaign, index, onSelect }) => {
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-40px" });
