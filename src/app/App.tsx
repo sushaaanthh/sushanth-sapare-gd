@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import {
-  ArrowUpRight, Menu, X, Mail, Send,
+  ArrowUpRight, Menu, X, Mail,
   Instagram, Linkedin, Github, ExternalLink,
   ChevronLeft, ChevronRight
 } from "lucide-react";
@@ -1316,20 +1316,6 @@ function Experience() {
 function Contact() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [form, setForm] = useState({ name: "", email: "", project: "", message: "" });
-  const [sent, setSent] = useState(false);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => {
-      setSent(false);
-      setForm({ name: "", email: "", project: "", message: "" });
-    }, 4000);
-  }
-
-  const inputClass =
-    "w-full bg-[#171717] border border-white/[0.08] rounded-xl px-5 py-4 text-white text-sm placeholder-white/25 focus:outline-none focus:border-[#FF5B3D]/45 transition-colors duration-300";
 
   return (
     <section id="contact" ref={ref} className="relative py-28 lg:py-44 bg-[#090909] overflow-hidden">
@@ -1352,7 +1338,7 @@ function Contact() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
         <SectionLabel label="07 — CONTACT" />
 
-        <div className="grid lg:grid-cols-2 gap-14 lg:gap-24">
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -1404,94 +1390,69 @@ function Contact() {
             </div>
           </motion.div>
 
-          <motion.form
-            onSubmit={handleSubmit}
-            className="space-y-4"
+          {/* Right Side: Premium Contact Card */}
+          <motion.div
+            className="bg-[#141414] border border-white/[0.08] rounded-3xl p-8 sm:p-10 shadow-2xl flex flex-col justify-between"
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs text-[#9E9E9E] tracking-[0.15em] uppercase mb-2">Name</label>
-                <input
-                  type="text"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="Your name"
-                  required
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label className="block text-xs text-[#9E9E9E] tracking-[0.15em] uppercase mb-2">Email</label>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="your@email.com"
-                  required
-                  className={inputClass}
-                />
-              </div>
+            <div className="mb-8 sm:mb-10">
+              <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-[#FF5B3D] block mb-2">
+                GET IN TOUCH
+              </span>
+              <p className="text-sm sm:text-base text-[#9E9E9E] leading-relaxed">
+                Feel free to reach out through any of the platforms below.
+              </p>
             </div>
 
-            <div>
-              <label className="block text-xs text-[#9E9E9E] tracking-[0.15em] uppercase mb-2">Project Type</label>
-              <input
-                type="text"
-                value={form.project}
-                onChange={(e) => setForm({ ...form, project: e.target.value })}
-                placeholder="Film publicity, social campaign, branding..."
-                className={inputClass}
-              />
-            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              {[
+                {
+                  platform: "LinkedIn",
+                  url: "https://www.linkedin.com/in/sushanth-sapare/",
+                  Icon: Linkedin,
+                },
+                {
+                  platform: "Behance",
+                  url: "https://www.behance.net/sushanthsapare",
+                  Icon: ExternalLink,
+                },
+                {
+                  platform: "Instagram",
+                  url: "https://www.instagram.com/sushhaaanthh/",
+                  Icon: Instagram,
+                },
+                {
+                  platform: "Email",
+                  url: "mailto:sushanthsapare@gmail.com",
+                  Icon: Mail,
+                },
+              ].map(({ platform, url, Icon }) => (
+                <motion.a
+                  key={platform}
+                  href={url}
+                  target={url.startsWith("http") ? "_blank" : undefined}
+                  rel={url.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="group p-5 bg-[#1b1b1b] border border-white/[0.08] hover:border-[#FF5B3D]/45 rounded-2xl flex items-center justify-between transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg"
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#222222] border border-white/[0.08] group-hover:border-[#FF5B3D]/35 flex items-center justify-center text-white/70 group-hover:text-[#FF5B3D] transition-colors duration-300 shadow-sm">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-base font-bold text-white/90 group-hover:text-white transition-colors tracking-wide">
+                      {platform}
+                    </span>
+                  </div>
 
-            <div>
-              <label className="block text-xs text-[#9E9E9E] tracking-[0.15em] uppercase mb-2">Message</label>
-              <textarea
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Tell me about your project and vision..."
-                required
-                rows={5}
-                className={`${inputClass} resize-none`}
-              />
+                  <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-[#FF5B3D] transition-colors duration-300" />
+                </motion.a>
+              ))}
             </div>
-
-            <motion.button
-              type="submit"
-              className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-[#FF5B3D] text-white font-bold text-sm rounded-xl overflow-hidden relative"
-              whileHover={{ scale: 1.01, backgroundColor: "#ff7b63" }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <AnimatePresence mode="wait">
-                {sent ? (
-                  <motion.span
-                    key="sent"
-                    className="flex items-center gap-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    Message Sent ✓
-                  </motion.span>
-                ) : (
-                  <motion.span
-                    key="send"
-                    className="flex items-center gap-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    Send Message <Send className="w-4 h-4" />
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </motion.form>
+          </motion.div>
         </div>
       </div>
     </section>
