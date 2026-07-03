@@ -539,12 +539,14 @@ function Hero() {
         </div>
         <div className="overflow-hidden pt-5 -mt-5 pb-2 mb-10 lg:mb-14">
           <motion.h1
-            className="font-black leading-[0.86] tracking-tighter"
+            className="font-black leading-[0.86] tracking-tighter select-none"
             style={{
               fontFamily: DISPLAY_FONT,
               fontSize: "clamp(3.5rem, 13vw, 13rem)",
-              WebkitTextStroke: "2px rgba(255,255,255,0.22)",
-              color: "transparent",
+              background: "linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6))",
             }}
             initial={{ y: "105%" }}
             animate={{ y: 0 }}
