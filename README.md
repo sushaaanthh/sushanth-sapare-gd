@@ -1,11 +1,3 @@
+### This my portfolio website.
 
-  # Premium Graphic Designer Portfolio
-
-  This is a code bundle for Premium Graphic Designer Portfolio. The original project is available at https://www.figma.com/design/ALDGbkY1KFUgy1lmyZE6cK/Premium-Graphic-Designer-Portfolio.
-
-  ## Running the code
-
-  Run `npm i` to install the dependencies.
-
-  Run `npm run dev` to start the development server.
-  
+I am a creative Graphic Designer with 2.5 years of professional experience specializing in film publicity, entertainment marketing, branding, and social media campaigns. I'm skilled in creating high-impact posters, digital advertisements, motion graphics, print media, and visual identities that combine compelling storytelling with modern design principles.
