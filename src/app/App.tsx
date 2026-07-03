@@ -667,7 +667,7 @@ function About() {
           >
             <div className="relative aspect-[3/4] max-w-[460px] rounded-2xl overflow-hidden bg-[#141414]">
               <img
-                src="/about/about-section-photo.png"
+                src="/about/about-section-photo.jpg"
                 alt="Sushanth Sapare"
                 className="w-full h-full object-cover"
                 style={{ filter: "grayscale(0.85) contrast(1.1)" }}
