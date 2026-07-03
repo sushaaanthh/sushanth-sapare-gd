@@ -38,22 +38,22 @@ const SPECIALTIES = [
 const HERO_COLLAGE = [
   {
     img: "/hero/hero-section-1.jpg",
-    style: { top: "18%", left: "57%", rotate: -5 },
+    className: "left-[4%] top-[0%] -rotate-4 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[51%] md:top-[22%] md:-rotate-3 md:w-[clamp(115px,14vw,165px)] xl:left-[57%] xl:top-[18%] xl:-rotate-5 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0,
   },
   {
     img: "/hero/hero-section-2.jpg",
-    style: { top: "15%", left: "73%", rotate: 4 },
+    className: "left-[48%] top-[6%] rotate-3 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[66%] md:top-[18%] md:rotate-2 md:w-[clamp(115px,14vw,165px)] xl:left-[73%] xl:top-[15%] xl:rotate-4 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0.15,
   },
   {
     img: "/hero/hero-section-3.jpg",
-    style: { top: "54%", left: "61%", rotate: 3 },
+    className: "left-[10%] top-[34%] rotate-2 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[55%] md:top-[46%] md:rotate-2 md:w-[clamp(115px,14vw,165px)] xl:left-[61%] xl:top-[54%] xl:rotate-3 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0.3,
   },
   {
     img: "/hero/hero-section-4.jpg",
-    style: { top: "49%", left: "78%", rotate: -3 },
+    className: "left-[46%] top-[38%] -rotate-3 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[70%] md:top-[42%] md:-rotate-2 md:w-[clamp(115px,14vw,165px)] xl:left-[78%] xl:top-[49%] xl:-rotate-3 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0.45,
   },
 ];
@@ -492,7 +492,7 @@ function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-end pb-24 lg:pb-36 overflow-hidden bg-[#090909]">
+    <section id="home" className="relative min-h-screen flex flex-col justify-start pt-28 pb-16 md:pt-0 md:justify-end md:pb-24 lg:pb-36 bg-[#090909]">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -509,41 +509,6 @@ function Hero() {
           backgroundSize: "88px 88px",
         }}
       />
-
-      <div className="absolute inset-0 pointer-events-none hidden xl:block">
-        {HERO_COLLAGE.map((card, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#171717]"
-            style={{
-              ...card.style,
-              width: "clamp(140px, 15vw, 230px)",
-              rotate: card.style.rotate,
-            }}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{
-              opacity: 1,
-              y: [0, -10, 0],
-              x: mx * (i % 2 === 0 ? 0.06 : -0.06),
-              scale: 1,
-            }}
-            transition={{
-              opacity: { delay: 0.8 + card.delay, duration: 0.7 },
-              scale: { delay: 0.8 + card.delay, duration: 0.7 },
-              y: { duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 },
-              x: { duration: 0.8, ease: "easeOut" },
-            }}
-          >
-            <img
-              src={card.img}
-              alt="Portfolio work"
-              className="w-full object-cover"
-              style={{ aspectRatio: "3/4" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          </motion.div>
-        ))}
-      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
         <motion.div
@@ -646,6 +611,35 @@ function Hero() {
             <ExternalLink className="w-4 h-4 text-white/70 group-hover:text-[#FF5B3D] transition-colors" />
           </motion.a>
         </motion.div>
+      </div>
+
+      <div className="relative w-full max-w-[340px] sm:max-w-[420px] mx-auto h-[260px] sm:h-[290px] mt-12 mb-4 md:absolute md:inset-0 md:max-w-none md:h-full md:mt-0 md:mb-0 md:pointer-events-none z-10 md:z-0">
+        {HERO_COLLAGE.map((card, i) => (
+          <motion.div
+            key={i}
+            className={`absolute rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#171717] ${card.className}`}
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{
+              opacity: 1,
+              y: [0, -10, 0],
+              x: mx * (i % 2 === 0 ? 0.06 : -0.06),
+              scale: 1,
+            }}
+            transition={{
+              opacity: { delay: 0.8 + card.delay, duration: 0.7 },
+              scale: { delay: 0.8 + card.delay, duration: 0.7 },
+              y: { duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 },
+              x: { duration: 0.8, ease: "easeOut" },
+            }}
+          >
+            <img
+              src={card.img}
+              alt={`Portfolio project sample ${i + 1}`}
+              className="w-full object-cover aspect-[3/4]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </motion.div>
+        ))}
       </div>
     </section>
   );
