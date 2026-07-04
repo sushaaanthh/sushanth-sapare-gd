@@ -37,22 +37,22 @@ const SPECIALTIES = [
 
 const HERO_COLLAGE = [
   {
-    img: "/hero/hero-section-1.jpg",
+    img: "/hero/hero-section-1.webp",
     className: "left-[4%] top-[0%] -rotate-4 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[51%] md:top-[22%] md:-rotate-3 md:w-[clamp(115px,14vw,165px)] xl:left-[57%] xl:top-[18%] xl:-rotate-5 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0,
   },
   {
-    img: "/hero/hero-section-2.jpg",
+    img: "/hero/hero-section-2.webp",
     className: "left-[48%] top-[6%] rotate-3 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[66%] md:top-[18%] md:rotate-2 md:w-[clamp(115px,14vw,165px)] xl:left-[73%] xl:top-[15%] xl:rotate-4 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0.15,
   },
   {
-    img: "/hero/hero-section-3.jpg",
+    img: "/hero/hero-section-3.webp",
     className: "left-[10%] top-[34%] rotate-2 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[55%] md:top-[46%] md:rotate-2 md:w-[clamp(115px,14vw,165px)] xl:left-[61%] xl:top-[54%] xl:rotate-3 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0.3,
   },
   {
-    img: "/hero/hero-section-4.jpg",
+    img: "/hero/hero-section-4.webp",
     className: "left-[46%] top-[38%] -rotate-3 w-[clamp(115px,36vw,145px)] sm:w-[140px] md:left-[70%] md:top-[42%] md:-rotate-2 md:w-[clamp(115px,14vw,165px)] xl:left-[78%] xl:top-[49%] xl:-rotate-3 xl:w-[clamp(140px,15vw,230px)]",
     delay: 0.45,
   },
@@ -78,84 +78,84 @@ const PUBLICITY_CAMPAIGNS: CampaignItem[] = [
     id: 1,
     title: "Game Changer",
     year: "2025",
-    img: "/publicity/game-changer.jpg",
+    img: "/publicity/game-changer.webp",
     description: "Milestone & Countdown Posters",
   },
   {
     id: 2,
     title: "Keedaa Cola",
     year: "2023",
-    img: "/publicity/keedaa-cola.jpg",
+    img: "/publicity/keedaa-cola.webp",
     description: "Announcement Posters",
   },
   {
     id: 3,
     title: "Kaantha",
     year: "2025",
-    img: "/publicity/kaantha-reel-thumb.jpg",
+    img: "/publicity/kaantha-reel-thumb.webp",
     description: "Reel Thumb & Google Ads Posters",
   },
   {
     id: 4,
     title: "Kishkindhapuri",
     year: "2025",
-    img: "/publicity/kishkindhapuri-2dtg.jpg",
+    img: "/publicity/kishkindhapuri-2dtg.webp",
     description: "Countdown Posters",
   },
   {
     id: 5,
     title: "Don Bosko",
     year: "2026",
-    img: "/publicity/don-bosko.jpg",
+    img: "/publicity/don-bosko.webp",
     description: "Onboarding Posters",
   },
   {
     id: 6,
     title: "Rathnam",
     year: "2024",
-    img: "/publicity/rathnam-reel.jpg",
+    img: "/publicity/rathnam-reel.webp",
     description: "Reel Thumb & Public Rxn Videos",
   },
   {
     id: 7,
     title: "Makutam",
     year: "2026",
-    img: "/publicity/makutam-hd.jpg",
+    img: "/publicity/makutam-hd.webp",
     description: "Announcement, Wishes & Review Posters",
   },
   {
     id: 8,
     title: "Raakaasa",
     year: "2026",
-    img: "/publicity/raakaasa.jpg",
+    img: "/publicity/raakaasa.webp",
     description: "Onboarding Posters",
   },
   {
     id: 9,
     title: "Gam Gam Ganesha",
     year: "2024",
-    img: "/publicity/gam-gam-ganesha-spotify-backdrop.jpg",
+    img: "/publicity/gam-gam-ganesha-spotify-backdrop.webp",
     description: "Story Posts & Spotify Backdrops",
   },
   {
     id: 10,
     title: "17 YORC",
     year: "2024",
-    img: "/publicity/17-yorc.jpg",
+    img: "/publicity/17-yorc.webp",
     description: "17 Years of Ram Charan in Indian Cinema Trend Poster Campaign",
   },
   {
     id: 11,
     title: "Con Kaun",
     year: "2025",
-    img: "/publicity/con-kaun.jpg",
+    img: "/publicity/con-kaun.webp",
     description: "Concept Poster",
   },
   {
     id: 12,
     title: "Maya (2025)",
     year: "2025",
-    img: "/publicity/maya-poster.jpg",
+    img: "/publicity/maya-poster.webp",
     description: "Concept Poster, PreLook & Motion Graphics",
   },
 ];
@@ -173,9 +173,9 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
     brand: "Pink Elephant Pictures",
     type: "Film Production Company",
     images: [
-      "/social-campaigns/pinkele1.jpg",
-      "/social-campaigns/pinkele2.jpg",
-      "/social-campaigns/pinkele3.jpg",
+      "/social-campaigns/pinkele1.webp",
+      "/social-campaigns/pinkele2.webp",
+      "/social-campaigns/pinkele3.webp",
     ],
   },
   {
@@ -183,9 +183,9 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
     brand: "Loukya Entertainments",
     type: "Film Production Company",
     images: [
-      "/social-campaigns/loukya1.jpg",
-      "/social-campaigns/loukya2.jpg",
-      "/social-campaigns/loukya3.jpg",
+      "/social-campaigns/loukya1.webp",
+      "/social-campaigns/loukya2.webp",
+      "/social-campaigns/loukya3.webp",
     ],
   },
   {
@@ -193,9 +193,9 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
     brand: "Sreemaya Entertainments",
     type: "Film Production Company",
     images: [
-      "/social-campaigns/sreemaya1.jpg",
-      "/social-campaigns/sreemaya2.jpg",
-      "/social-campaigns/sreemaya3.jpg",
+      "/social-campaigns/sreemaya1.webp",
+      "/social-campaigns/sreemaya2.webp",
+      "/social-campaigns/sreemaya3.webp",
     ],
   },
   {
@@ -203,10 +203,10 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
     brand: "AMC Engineering College",
     type: "Educational Institution",
     images: [
-      "/social-campaigns/amc1.jpg",
-      "/social-campaigns/amc2.jpg",
-      "/social-campaigns/amc3.jpg",
-      "/social-campaigns/amc4.jpg",
+      "/social-campaigns/amc1.webp",
+      "/social-campaigns/amc2.webp",
+      "/social-campaigns/amc3.webp",
+      "/social-campaigns/amc4.webp",
     ],
   },
   {
@@ -214,12 +214,12 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
     brand: "London Kids Pre-School",
     type: "Educational Institution",
     images: [
-      "/social-campaigns/london-kids1.jpg",
-      "/social-campaigns/london-kids2.jpg",
-      "/social-campaigns/london-kids3.jpg",
-      "/social-campaigns/london-kids4.jpg",
-      "/social-campaigns/london-kids5.jpg",
-      "/social-campaigns/london-kids6.jpg",
+      "/social-campaigns/london-kids1.webp",
+      "/social-campaigns/london-kids2.webp",
+      "/social-campaigns/london-kids3.webp",
+      "/social-campaigns/london-kids4.webp",
+      "/social-campaigns/london-kids5.webp",
+      "/social-campaigns/london-kids6.webp",
     ],
   },
   {
@@ -227,8 +227,8 @@ const SOCIAL_MEDIA_CAMPAIGNS: SocialMediaCampaignItem[] = [
     brand: "Inovact Social",
     type: "Networking App",
     images: [
-      "/social-campaigns/inovact1.jpg",
-      "/social-campaigns/inovact2.jpg",
+      "/social-campaigns/inovact1.webp",
+      "/social-campaigns/inovact2.webp",
     ],
   },
 ];
@@ -240,13 +240,13 @@ export interface FanArtItem {
 }
 
 const FAN_ARTS: FanArtItem[] = [
-  { id: 1, title: "Peddi", img: "/fan-arts/fanart1-peddi.jpg" },
-  { id: 2, title: "Obsession", img: "/fan-arts/fanart2-obsession.jpg" },
-  { id: 3, title: "Orange", img: "/fan-arts/fanart3-orange.jpg" },
-  { id: 4, title: "Peddi 200 Days", img: "/fan-arts/fanart4-peddi200dtg.jpg" },
-  { id: 5, title: "OG", img: "/fan-arts/fanart5-og.jpg" },
-  { id: 6, title: "Coolie", img: "/fan-arts/fanart6-coolie.jpg" },
-  { id: 7, title: "HHVM Wishes", img: "/fan-arts/fanart7-hhvmwishes.jpg" },
+  { id: 1, title: "Peddi", img: "/fan-arts/fanart1-peddi.webp" },
+  { id: 2, title: "Obsession", img: "/fan-arts/fanart2-obsession.webp" },
+  { id: 3, title: "Orange", img: "/fan-arts/fanart3-orange.webp" },
+  { id: 4, title: "Peddi 200 Days", img: "/fan-arts/fanart4-peddi200dtg.webp" },
+  { id: 5, title: "OG", img: "/fan-arts/fanart5-og.webp" },
+  { id: 6, title: "Coolie", img: "/fan-arts/fanart6-coolie.webp" },
+  { id: 7, title: "HHVM Wishes", img: "/fan-arts/fanart7-hhvmwishes.webp" },
 ];
 
 const SKILL_GROUPS = [
@@ -388,7 +388,7 @@ function Nav() {
           className="flex items-center"
         >
           <img
-            src="/icons/ss-icon-photo.png"
+            src="/icons/ss-icon-photo.webp"
             alt="Sushanth Sapare Logo"
             className="h-8 sm:h-9 w-auto object-contain"
           />
@@ -667,7 +667,7 @@ function About() {
           >
             <div className="relative aspect-[3/4] max-w-[460px] rounded-2xl overflow-hidden bg-[#141414]">
               <img
-                src="/about/about-section-photo.jpg"
+                src="/about/about-section-photo.webp"
                 alt="Sushanth Sapare"
                 className="w-full h-full object-cover"
                 style={{ filter: "grayscale(0.85) contrast(1.1)" }}
@@ -1474,7 +1474,7 @@ function Footer() {
           className="flex items-center"
         >
           <img
-            src="/icons/ss-icon-photo.png"
+            src="/icons/ss-icon-photo.webp"
             alt="Sushanth Sapare Logo"
             className="h-8 sm:h-9 w-auto object-contain"
           />
