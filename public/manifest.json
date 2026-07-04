@@ -1,0 +1,17 @@
+{
+  "name": "Sushanth Sapare | Graphic Designer",
+  "short_name": "Sushanth Sapare",
+  "description": "Graphic Designer & Video Editor specializing in film publicity, branding, and visual storytelling.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090909",
+  "theme_color": "#090909",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "16x16 32x32 48x48 180x180 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -8,6 +8,8 @@ import {
 import { GrainOverlay } from "./components/ui/grain-overlay";
 import { SectionLabel } from "./components/ui/section-label";
 import { AnimatedCounter } from "./components/ui/animated-counter";
+import { CustomCursor } from "../components/CustomCursor";
+import { ScrollProgress } from "../components/ScrollProgress";
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // DATA & CONSTANTS
@@ -528,7 +530,7 @@ function Hero() {
             className="font-black leading-[0.86] tracking-tighter text-white"
             style={{
               fontFamily: DISPLAY_FONT,
-              fontSize: "clamp(3.5rem, 13vw, 13rem)",
+              fontSize: "clamp(3.3rem, 12.35vw, 12.35rem)",
             }}
             initial={{ y: "105%" }}
             animate={{ y: 0 }}
@@ -542,7 +544,7 @@ function Hero() {
             className="font-black leading-[0.86] tracking-tighter"
             style={{
               fontFamily: DISPLAY_FONT,
-              fontSize: "clamp(3.5rem, 13vw, 13rem)",
+              fontSize: "clamp(3.3rem, 12.35vw, 12.35rem)",
               WebkitTextStroke: "2px rgba(255,255,255,0.22)",
               color: "transparent",
             }}
@@ -1502,6 +1504,8 @@ function Footer() {
 export default function App() {
   return (
     <div className="bg-[#090909] text-white min-h-screen overflow-x-hidden" style={{ fontFamily: "'Manrope', sans-serif" }}>
+      <CustomCursor />
+      <ScrollProgress />
       <GrainOverlay />
       <Nav />
       <Hero />

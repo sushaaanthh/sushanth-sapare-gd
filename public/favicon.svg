@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- First geometric S -->
+  <path d="M 200,180 C 200,105 60,105 60,190 C 60,275 200,245 200,330 C 200,415 60,415 60,340" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" fill="none" />
+  <!-- Second geometric S -->
+  <path d="M 370,180 C 370,105 230,105 230,190 C 230,275 370,245 370,330 C 370,415 230,415 230,340" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" fill="none" />
+  <!-- Reddish-Orange Accent Period -->
+  <circle cx="455" cy="375" r="30" fill="#FF5B3D" />
+</svg>
