@@ -494,7 +494,7 @@ function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-start pt-28 pb-16 md:pt-0 md:justify-end md:pb-24 lg:pb-36 bg-[#090909]">
+    <section id="home" className="relative min-h-screen flex flex-col justify-start pt-28 pb-16 md:pt-0 md:justify-end md:pb-24 lg:pt-16 lg:pb-20 bg-[#090909]">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -615,7 +615,7 @@ function Hero() {
         </motion.div>
       </div>
 
-      <div className="relative w-full max-w-[340px] sm:max-w-[420px] mx-auto h-[260px] sm:h-[290px] mt-12 mb-4 md:absolute md:inset-0 md:max-w-none md:h-full md:mt-0 md:mb-0 md:pointer-events-none z-10 md:z-0">
+      <div className="relative w-full max-w-[340px] sm:max-w-[420px] mx-auto h-[260px] sm:h-[290px] mt-12 mb-4 md:absolute md:inset-0 md:max-w-none md:h-full md:mt-0 md:mb-0 md:pointer-events-none z-10 md:z-0 lg:top-16 lg:bottom-auto">
         {HERO_COLLAGE.map((card, i) => (
           <motion.div
             key={i}
@@ -716,7 +716,7 @@ function About() {
               Creative Graphic Designer with 2+ years of experience specializing in film publicity, entertainment marketing, branding, and social media campaigns.
             </p>
             <p className="text-[#9E9E9E] text-lg leading-relaxed mb-9">
-              Worked with production houses, entertainment brands, startups, and educational institutions — creating movie posters, film campaigns, brand identities, and motion graphics that tell stories before a word is read.
+              Worked with production houses, entertainment brands, startups, and educational institutions; creating movie posters, film campaigns, brand identities, and motion graphics that tell stories before a word is read.
             </p>
 
             <div className="grid grid-cols-2 gap-x-8 gap-y-8">
@@ -831,7 +831,7 @@ function PublicityCampaigns() {
             </h2>
           </div>
           <p className="text-[#9E9E9E] text-lg leading-relaxed max-w-md lg:self-end">
-            A dedicated showcase of theatrical campaign posters and visual publicity designed for blockbuster feature films. Click any card to preview full details.
+            A dedicated showcase of theatrical campaign posters and visual publicity designed for blockbuster feature films.
           </p>
         </div>
 
